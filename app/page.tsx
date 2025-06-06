@@ -9,7 +9,7 @@ import Footer from "@/app/Componenets/Footer";
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col min-h-screen bg-[#121212]">
+    <main className="relative flex flex-col min-h-screen bg-[#ffffff]">
       <Navbar className="absolute top-0 z-10 w-screen" />
       <CallButton />
       <WhatsAppButton />
