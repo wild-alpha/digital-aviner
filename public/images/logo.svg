@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 927.19 159.77">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e76924;
+      }
+
+      .cls-2 {
+        letter-spacing: -.07em;
+      }
+
+      .cls-3 {
+        font-family: BankGothicBT-Light, 'BankGothic Lt BT';
+        font-size: 37.51px;
+        font-weight: 300;
+      }
+
+      .cls-4 {
+        font-family: Cardo-Regular, Cardo;
+        font-size: 86.34px;
+      }
+    </style>
+  </defs>
+  <text class="cls-3" transform="translate(173.26 133.46)"><tspan x="0" y="0">WHERE AI MEETS DIGI</tspan><tspan class="cls-2" x="453.77" y="0">T</tspan><tspan x="472.87" y="0">AL SUCCESS </tspan></text>
+  <text class="cls-4" transform="translate(171.7 84.79)"><tspan x="0" y="0">DIGITAL AVINER</tspan></text>
+  <g>
+    <path class="cls-1" d="M123.06,62.81v-16.35l-26.52-29.83H16.69v8.15c7.05,3.21,111.28,50.72,115.52,52.63l-9.15,4.17-106.38,48.47v13.09H.04v-23.78c10.23-4.66,80.15-36.53,92.06-41.96C79.78,71.8,10.65,40.29.04,35.47v-18.86h16.61V0h86.77l36.27,39.59v30.8l-16.63-7.58Z"/>
+    <polygon class="cls-1" points="16.69 159.77 16.69 143.14 96.54 143.14 123.06 113.29 123.06 92.03 139.69 84.44 139.69 120.2 103.42 159.77 16.69 159.77"/>
+    <polygon class="cls-1" points="0 50.54 0 68.82 18.88 77.42 0 86.02 0 104.3 59 77.42 0 50.54"/>
+  </g>
+</svg>
