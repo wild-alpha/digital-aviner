@@ -2,9 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Interior Design Dubai - Luxury Interior Designers in UAE",
+  title: "Best Digital Marketing Company Dubai, 2025 - Digital Aviner",
   description:
-    "Best interior design company in Dubai. We Do Interior Design. We are offering professional services of Interior Design and fitout. Contact us today!",
+    "Digital Aviner is the leading digital marketing company in Dubai for 2025, offering expert services in SEO, social media marketing, Google Ads, content creation, and web design. Trusted by businesses across the UAE to drive results, increase ROI, and grow online visibility. Book your free strategy session today!",
 };
 
 export default function RootLayout({
