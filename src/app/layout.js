@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata = {
   title: "AI based IT Solutions & Lead Generation Agency - Digital Aviner",
   description:
-    "Digital Aviner offering unparalleled AI powered IT solutions and lead generation services in Dubai.",
+    "Digital Aviner offering unparalleled AI powered IT solutions and lead generation services across the world including Dubai.",
   alternates: {
     canonical: "https://digitalaviner.com/",
   },
