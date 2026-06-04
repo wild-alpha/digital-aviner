@@ -2,11 +2,11 @@ import './globals.css';
 
 // Metadata configuration
 export const metadata = {
-  title: "Best Digital Marketing Agency in Dubai 2025 - Digital Aviner",
+  title: "AI based IT Solutions & Lead Generation Agency - Digital Aviner",
   description:
-    "We Do Interior offering unparalleled interior design services in Dubai. With attention to detail and creativity, we transform your vision into reality.",
+    "Digital Aviner offering unparalleled AI powered IT solutions and lead generation services in Dubai.",
   alternates: {
-    canonical: "https://www.digitalaviner.com/",
+    canonical: "https://digitalaviner.com/",
   },
 };
 
