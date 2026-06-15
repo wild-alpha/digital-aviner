@@ -138,12 +138,12 @@ const Navbar = ({ className = "" }) => {
               <span className="flex h-5 w-5 items-center justify-center text-[10px]">
                 <FiPhoneCall />
               </span>
-              <span className="tracking-wide">+971 58 807 5603</span>
+              <span className="tracking-wide">+1 000 000 0000</span>
             </div>
 
             <div className="flex items-center gap-2 whitespace-nowrap text-xs text-white">
               <FaWhatsapp className="text-base" />
-              <span className="tracking-wide">+971 58 807 5603</span>
+              <span className="tracking-wide">+1 000 000 0000</span>
             </div>
 
             <div className="flex items-center gap-3 text-sm text-white">
