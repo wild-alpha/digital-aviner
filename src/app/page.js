@@ -20,7 +20,7 @@ export default function Home() {
       {/* Sections */}
       <HeroSection />
 
-      <section className="mt-6">
+      <section className="">
         <Services />
       </section>
 

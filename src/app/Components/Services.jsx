@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { FiArrowDown } from "react-icons/fi";
 
@@ -21,20 +22,104 @@ const logos = [
 ];
 
 const services = [
-  { title: "Online Business Development", image: "/images/services/ai.jpg", href: "/services/ai-ml" },
-  { title: "Business Branding", image: "/images/services/ai.jpg", href: "/services/ai-ml" },
-  { title: "Digital Marketing Services", image: "/images/services/erp.jpg", href: "/services/dynamics-365" },
-  { title: "Performance Marketing Services", image: "/images/services/mobile.jpg", href: "/services/mobile" },
-  { title: "Local Business Optimization", image: "/images/services/staff.jpg", href: "/services/staff-augmentation" },
-  { title: "SEO Services", image: "/images/services/ai.jpg", href: "/services/ai-ml" },
-  { title: "Design & Development", image: "/images/services/staff.jpg", href: "/services/staff-augmentation" },
-  { title: "Web Development", image: "/images/services/ai.jpg", href: "/services/ai-ml" },
-  { title: "App Development", image: "/images/services/erp.jpg", href: "/services/dynamics-365" },
-  { title: "Social Media Management", image: "/images/services/mobile.jpg", href: "/services/mobile" },
-  { title: "Custom Software Development", image: "/images/services/staff.jpg", href: "/services/staff-augmentation" },
-  { title: "UI/UX Design", image: "/images/services/erp.jpg", href: "/services/dynamics-365" },
-  { title: "E-Commerce", image: "/images/services/mobile.jpg", href: "/services/mobile" },
-  { title: "Maintenance & Support", image: "/images/services/staff.jpg", href: "/services/staff-augmentation" },
+  {
+    title: "Online Business Development",
+    image: "/images/services/online-business-development.jpg",
+    href: "/services/online-business-development",
+    alt: "Online Business Development Services in Dubai UAE",
+    imageTitle: "Online Business Development Services",
+  },
+  {
+    title: "Business Branding",
+    image: "/images/services/business-branding.jpg",
+    href: "/services/business-branding",
+    alt: "Business Branding Services in Dubai UAE",
+    imageTitle: "Business Branding Services",
+  },
+  {
+    title: "Digital Marketing Services",
+    image: "/images/services/digital-marketing-services.jpg",
+    href: "/services/digital-marketing-services",
+    alt: "Digital Marketing Services in Dubai UAE",
+    imageTitle: "Digital Marketing Agency Dubai",
+  },
+  {
+    title: "Performance Marketing Services",
+    image: "/images/services/performance-marketing-services.jpg",
+    href: "/services/performance-marketing-services",
+    alt: "Performance Marketing Services in Dubai UAE",
+    imageTitle: "Performance Marketing Experts Dubai",
+  },
+  {
+    title: "Local Business Optimization",
+    image: "/images/services/local-business-optimization.jpg",
+    href: "/services/local-business-optimization",
+    alt: "Local Business Optimization Services in Dubai UAE",
+    imageTitle: "Local Business Optimization Dubai",
+  },
+  {
+    title: "SEO Services",
+    image: "/images/services/seo-services.jpg",
+    href: "/services/seo-services",
+    alt: "SEO Services in Dubai UAE",
+    imageTitle: "Professional SEO Services Dubai",
+  },
+  {
+    title: "Design & Development",
+    image: "/images/services/design-development.jpg",
+    href: "/services/design-development",
+    alt: "Design and Development Services in Dubai UAE",
+    imageTitle: "Design and Development Services",
+  },
+  {
+    title: "Web Development",
+    image: "/images/services/web-development.jpg",
+    href: "/services/web-development",
+    alt: "Web Development Services in Dubai UAE",
+    imageTitle: "Custom Web Development Dubai",
+  },
+  {
+    title: "App Development",
+    image: "/images/services/app-development.jpg",
+    href: "/services/app-development",
+    alt: "Mobile App Development Services in Dubai UAE",
+    imageTitle: "Mobile App Development Dubai",
+  },
+  {
+    title: "Social Media Management",
+    image: "/images/services/social-media-management.jpg",
+    href: "/services/social-media-management",
+    alt: "Social Media Management Services in Dubai UAE",
+    imageTitle: "Social Media Management Dubai",
+  },
+  {
+    title: "Custom Software Development",
+    image: "/images/services/custom-software-development.jpg",
+    href: "/services/custom-software-development",
+    alt: "Custom Software Development Services in Dubai UAE",
+    imageTitle: "Custom Software Development Dubai",
+  },
+  {
+    title: "UI/UX Design",
+    image: "/images/services/ui-ux-design.jpg",
+    href: "/services/ui-ux-design",
+    alt: "UI UX Design Services in Dubai UAE",
+    imageTitle: "UI UX Design Dubai",
+  },
+  {
+    title: "E-Commerce",
+    image: "/images/services/ecommerce-development.jpg",
+    href: "/services/ecommerce-development",
+    alt: "E Commerce Development Services in Dubai UAE",
+    imageTitle: "E Commerce Website Development Dubai",
+  },
+  {
+    title: "Maintenance & Support",
+    image: "/images/services/maintenance-support.jpg",
+    href: "/services/maintenance-support",
+    alt: "Website Maintenance and Support Services in Dubai UAE",
+    imageTitle: "Website Maintenance and Support Dubai",
+  },
 ];
 
 export default function Services({
@@ -55,6 +140,7 @@ export default function Services({
 
   return (
     <section className={`relative overflow-hidden bg-black text-white ${className}`}>
+      {/*
       <div className="bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4">
           <Swiper
@@ -75,9 +161,11 @@ export default function Services({
             {[...logos, ...logos].map((logo, index) => (
               <SwiperSlide key={`${logo.alt}-${index}`} className="!w-auto">
                 <div className="flex h-14 items-center justify-center px-3">
-                  <img
+                  <Image
                     src={logo.src}
                     alt={logo.alt}
+                    width={120}
+                    height={40}
                     className="h-8 w-auto object-contain opacity-90"
                     loading="lazy"
                   />
@@ -87,6 +175,7 @@ export default function Services({
           </Swiper>
         </div>
       </div>
+      */}
 
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 [background:radial-gradient(900px_520px_at_40%_35%,rgba(51,199,194,0.22),rgba(0,0,0,0)_60%)]" />
@@ -122,11 +211,13 @@ export default function Services({
               className="group relative overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 transition hover:ring-white/25"
             >
               <div className="relative h-[120px] w-full md:h-[300px]">
-                <img
+                <Image
                   src={service.image}
-                  alt={service.title}
-                  className="h-full w-full object-cover opacity-85 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-95"
-                  loading="lazy"
+                  alt={service.alt}
+                  title={service.imageTitle}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover opacity-85 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-95"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-black/10" />
