@@ -4,66 +4,66 @@ import React from "react";
 import Link from "next/link";
 
 const defaultPartners = [
-  { src: "/images/partners/salesforce.png", alt: "Salesforce" },
-  { src: "/images/partners/shopify-plus.png", alt: "Shopify Plus Partner" },
-  { src: "/images/partners/microsoft.png", alt: "Microsoft Partner" },
+  { src: "/images/adobe-creative-cloud.png", alt: "Salesforce" },
+  { src: "/images/shopify.png", alt: "Shopify Plus Partner" },
+  { src: "/images/microsoft-365.png", alt: "Microsoft Partner" },
 ];
 
 const defaultCards = [
   {
     tag: "Case Study",
-    title: "US Fashion Resale Platform Scales to 100K Monthly Transactions",
-    image: "/images/insights/case-1.jpg",
-    href: "/case-studies/us-fashion-resale",
+    title: "Dubai's Premium Interior Design Company Generated AED 12M+ Revenue",
+    image: "/images/interior-design-case-study.png",
+    href: "/case-studies/interior-design-revenue",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "Custom Web Application Development: Everything You Need to Know",
-    image: "/images/insights/blog-1.jpg",
+    image: "/images/web-development-everything-you-need-to-know.png",
     href: "/blog/custom-web-app-dev",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "Trends of Mobile Design: What’s Next for Your Business?",
-    image: "/images/insights/blog-2.jpg",
+    image: "/images/trends-of-mobile-app-design.png",
     href: "/blog/mobile-design-trends",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "How Generative AI Is Transforming Business Operations",
-    image: "/images/insights/blog-3.jpg",
+    image: "/images/how-generative-ai-is-transforming-business-operations.png",
     href: "/blog/genai-business-ops",
     size: "md",
   },
   {
     tag: "Case Study",
-    title: "Pakistan Furniture Leader’s Shopify Migration Drives 55% Growth",
-    image: "/images/insights/case-2.jpg",
-    href: "/case-studies/shopify-migration-growth",
+    title: "Dubai's Leading Restaurant Hospitality Company Drives 55% Growth",
+    image: "/images/restaurant-hospitality-case-study.png",
+    href: "/case-studies/restaurant-hospitality-growth",
     size: "lg",
   },
   {
     tag: "Case Study",
-    title: "US Fintech’s AI Financial Modeling Secures $2M+ Funding",
-    image: "/images/insights/case-3.jpg",
-    href: "/case-studies/fintech-ai-modeling",
+    title: "Dubai's Premium Real Estate Company Drives 40% Growth",
+    image: "/images/real-estate-case-study.png",
+    href: "/case-studies/real-estate-growth",
     size: "md",
   },
 ];
 
 const defaultStats = [
-  { value: "3,000+", label: "Successful Projects" },
-  { value: "23+", label: "Countries Supported" },
-  { value: "250+", label: "Active Clients" },
-  { value: "15+", label: "Years of Engagement Experience" },
+  { value: "130+", label: "Successful Projects" },
+  { value: "5+", label: "Countries Supported" },
+  { value: "10+", label: "Active Clients" },
+  { value: "6+", label: "Years of Engagement Experience" },
 ];
 
 export default function Features({
   className = "",
-  partnersTitle = "Our Partnerships",
+  partnersTitle = "Tools & Platforms We Work With",
   partners = defaultPartners,
 
   insightsEyebrow = "FEATURED INSIGHTS",

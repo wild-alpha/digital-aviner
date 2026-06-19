@@ -8,7 +8,7 @@ const HeroSection = ({
   posterSrc,
   heading = "Building at the Speed of AI",
   subheading =
-    "We help companies across North America, Middle East, Africa and Asia Pacific with technological development",
+    "We help companies across UAE, UK, Australia, USA and Canada with technological development",
   ctaLabel = "Get in Touch",
   ctaHref = "/contact",
 }) => {

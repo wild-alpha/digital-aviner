@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiArrowDown } from "react-icons/fi";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, FreeMode } from "swiper/modules";
@@ -23,102 +22,67 @@ const logos = [
 
 const services = [
   {
-    title: "Online Business Development",
-    image: "/images/services/online-business-development.jpg",
+    title: "Lead Generation",
+    image: "/images/lead-generation.png",
     href: "/services/online-business-development",
     alt: "Online Business Development Services in Dubai UAE",
     imageTitle: "Online Business Development Services",
   },
   {
-    title: "Business Branding",
-    image: "/images/services/business-branding.jpg",
+    title: "Agentic AI",
+    image: "/images/agentic-ai.png",
     href: "/services/business-branding",
     alt: "Business Branding Services in Dubai UAE",
     imageTitle: "Business Branding Services",
   },
   {
-    title: "Digital Marketing Services",
-    image: "/images/services/digital-marketing-services.jpg",
+    title: "Generative AI",
+    image: "/images/generative-ai.png",
     href: "/services/digital-marketing-services",
     alt: "Digital Marketing Services in Dubai UAE",
     imageTitle: "Digital Marketing Agency Dubai",
   },
   {
-    title: "Performance Marketing Services",
-    image: "/images/services/performance-marketing-services.jpg",
+    title: "AI Agents On Demand",
+    image: "/images/ai-agents-on-demand.png",
+    href: "/services/business-branding",
+    alt: "Business Branding Services in Dubai UAE",
+    imageTitle: "Business Branding Services",
+  },
+  {
+    title: "Digital Marketing",
+    image: "/images/digital-marketing.png",
     href: "/services/performance-marketing-services",
     alt: "Performance Marketing Services in Dubai UAE",
     imageTitle: "Performance Marketing Experts Dubai",
   },
   {
-    title: "Local Business Optimization",
-    image: "/images/services/local-business-optimization.jpg",
+    title: "Cloud Computing",
+    image: "/images/cloud-computing.png",
     href: "/services/local-business-optimization",
     alt: "Local Business Optimization Services in Dubai UAE",
     imageTitle: "Local Business Optimization Dubai",
   },
   {
-    title: "SEO Services",
-    image: "/images/services/seo-services.jpg",
+    title: "Saas",
+    image: "/images/saas.png",
+    href: "/services/local-business-optimization",
+    alt: "Local Business Optimization Services in Dubai UAE",
+    imageTitle: "Local Business Optimization Dubai",
+  },
+  {
+    title: "Mobile App Development",
+    image: "/images/app-development.png",
     href: "/services/seo-services",
     alt: "SEO Services in Dubai UAE",
     imageTitle: "Professional SEO Services Dubai",
   },
   {
-    title: "Design & Development",
-    image: "/images/services/design-development.jpg",
+    title: "Web Development",
+    image: "/images/web-development.png",
     href: "/services/design-development",
     alt: "Design and Development Services in Dubai UAE",
     imageTitle: "Design and Development Services",
-  },
-  {
-    title: "Web Development",
-    image: "/images/services/web-development.jpg",
-    href: "/services/web-development",
-    alt: "Web Development Services in Dubai UAE",
-    imageTitle: "Custom Web Development Dubai",
-  },
-  {
-    title: "App Development",
-    image: "/images/services/app-development.jpg",
-    href: "/services/app-development",
-    alt: "Mobile App Development Services in Dubai UAE",
-    imageTitle: "Mobile App Development Dubai",
-  },
-  {
-    title: "Social Media Management",
-    image: "/images/services/social-media-management.jpg",
-    href: "/services/social-media-management",
-    alt: "Social Media Management Services in Dubai UAE",
-    imageTitle: "Social Media Management Dubai",
-  },
-  {
-    title: "Custom Software Development",
-    image: "/images/services/custom-software-development.jpg",
-    href: "/services/custom-software-development",
-    alt: "Custom Software Development Services in Dubai UAE",
-    imageTitle: "Custom Software Development Dubai",
-  },
-  {
-    title: "UI/UX Design",
-    image: "/images/services/ui-ux-design.jpg",
-    href: "/services/ui-ux-design",
-    alt: "UI UX Design Services in Dubai UAE",
-    imageTitle: "UI UX Design Dubai",
-  },
-  {
-    title: "E-Commerce",
-    image: "/images/services/ecommerce-development.jpg",
-    href: "/services/ecommerce-development",
-    alt: "E Commerce Development Services in Dubai UAE",
-    imageTitle: "E Commerce Website Development Dubai",
-  },
-  {
-    title: "Maintenance & Support",
-    image: "/images/services/maintenance-support.jpg",
-    href: "/services/maintenance-support",
-    alt: "Website Maintenance and Support Services in Dubai UAE",
-    imageTitle: "Website Maintenance and Support Dubai",
   },
 ];
 
@@ -126,18 +90,10 @@ export default function Services({
   className = "",
   eyebrow = "OUR SERVICES",
   title = "Transform Your Business",
-  viewMoreLabel = "View More Services",
-  viewLessLabel = "View Less",
   showSideCta = true,
   sideCtaLabel = "Let's Talk Business",
   sideCtaHref = "/contact",
 }) {
-  const [showAll, setShowAll] = useState(false);
-
-  const visibleServices = useMemo(() => {
-    return showAll ? services : services.slice(0, 4);
-  }, [showAll]);
-
   return (
     <section className={`relative overflow-hidden bg-black text-white ${className}`}>
       {/*
@@ -203,8 +159,8 @@ export default function Services({
           {title}
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-4">
-          {visibleServices.map((service, index) => (
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-3">
+          {services.map((service, index) => (
             <Link
               key={`${service.title}-${index}`}
               href={service.href}
@@ -216,7 +172,7 @@ export default function Services({
                   alt={service.alt}
                   title={service.imageTitle}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover opacity-85 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-95"
                 />
 
@@ -230,23 +186,6 @@ export default function Services({
               </div>
             </Link>
           ))}
-        </div>
-
-        <div className="mt-10 flex justify-center md:mt-14">
-          <button
-            type="button"
-            onClick={() => setShowAll((value) => !value)}
-            className="inline-flex items-center justify-center gap-4 rounded-full border border-[#33C7C2]/35 bg-white/5 px-10 py-4 text-base font-medium text-white/95 shadow-[0_0_0_1px_rgba(255,255,255,0.04)] transition hover:border-[#33C7C2]/55 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30"
-            aria-expanded={showAll}
-          >
-            {showAll ? viewLessLabel : viewMoreLabel}
-
-            <FiArrowDown
-              className={`text-xl text-white/90 transition-transform ${
-                showAll ? "rotate-180" : ""
-              }`}
-            />
-          </button>
         </div>
       </div>
     </section>

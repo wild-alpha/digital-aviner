@@ -281,7 +281,7 @@ export default function GetInTouchSection({
                   </div>
 
                   <p className="mt-3 max-w-md text-base leading-relaxed text-white/80 md:text-lg">
-                    We’re across 5 continents, explore our office nearest to you.
+                    We’re across 5 continents.
                   </p>
 
                   <a
