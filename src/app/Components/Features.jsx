@@ -4,51 +4,51 @@ import React from "react";
 import Link from "next/link";
 
 const defaultPartners = [
-  { src: "/images/adobe-creative-cloud.png", alt: "Salesforce" },
-  { src: "/images/shopify.png", alt: "Shopify Plus Partner" },
-  { src: "/images/microsoft-365.png", alt: "Microsoft Partner" },
+  { src: "/images/adobe-creative-cloud.webp", alt: "Salesforce" },
+  { src: "/images/shopify.webp", alt: "Shopify Plus Partner" },
+  { src: "/images/microsoft-365.webp", alt: "Microsoft Partner" },
 ];
 
 const defaultCards = [
   {
     tag: "Case Study",
     title: "Dubai's Premium Interior Design Company Generated AED 12M+ Revenue",
-    image: "/images/interior-design-case-study.png",
+    image: "/images/interior-design-case-study.webp",
     href: "/case-studies/interior-design-revenue",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "Custom Web Application Development: Everything You Need to Know",
-    image: "/images/web-development-everything-you-need-to-know.png",
+    image: "/images/web-development-everything-you-need-to-know.webp",
     href: "/blog/custom-web-app-dev",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "Trends of Mobile Design: What’s Next for Your Business?",
-    image: "/images/trends-of-mobile-app-design.png",
+    image: "/images/trends-of-mobile-app-design.webp",
     href: "/blog/mobile-design-trends",
     size: "md",
   },
   {
     tag: "Blogs",
     title: "How Generative AI Is Transforming Business Operations",
-    image: "/images/how-generative-ai-is-transforming-business-operations.png",
+    image: "/images/how-generative-ai-is-transforming-business-operations.webp",
     href: "/blog/genai-business-ops",
     size: "md",
   },
   {
     tag: "Case Study",
     title: "Dubai's Leading Restaurant Hospitality Company Drives 55% Growth",
-    image: "/images/restaurant-hospitality-case-study.png",
+    image: "/images/restaurant-hospitality-case-study.webp",
     href: "/case-studies/restaurant-hospitality-growth",
     size: "lg",
   },
   {
     tag: "Case Study",
     title: "Dubai's Premium Real Estate Company Drives 40% Growth",
-    image: "/images/real-estate-case-study.png",
+    image: "/images/real-estate-case-study.webp",
     href: "/case-studies/real-estate-growth",
     size: "md",
   },
