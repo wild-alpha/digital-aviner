@@ -3,22 +3,55 @@
 import Link from "next/link";
 import React, { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { FiChevronDown, FiPhoneCall, FiX } from "react-icons/fi";
-import {
-  FaWhatsapp,
-  FaLinkedinIn,
-  FaPinterestP,
-  FaInstagram,
-  FaFacebookF,
-} from "react-icons/fa";
-import { FaTiktok } from "react-icons/fa6";
+import { FiChevronDown, FiPhoneCall, FiX, FiGlobe } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 const navLinks = [
   { title: "WHAT WE DO", path: "/what-we-do" },
-  { title: "WHO WE HELP", path: "/who-we-help" },
   { title: "WHO WE ARE", path: "/who-we-are" },
   { title: "HOW WE DELIVER", path: "/how-we-deliver" },
   { title: "JOIN DIGITAL AVINER", path: "/join-us" },
+];
+
+const capabilities = [
+  { title: "Lead Generation", path: "/what-we-do/lead-generation" },
+  { title: "Agentic AI", path: "/what-we-do/agentic-ai" },
+  { title: "Generative AI", path: "/what-we-do/generative-ai" },
+  { title: "AI Agents on Demand", path: "/what-we-do/ai-agents-on-demand" },
+  { title: "Digital Marketing", path: "/what-we-do/digital-marketing" },
+  { title: "Cloud Computing", path: "/what-we-do/cloud-computing" },
+  { title: "SaaS", path: "/what-we-do/saas" },
+  { title: "Mobile App Development", path: "/what-we-do/mobile-app-development" },
+  { title: "Web Development", path: "/what-we-do/web-development" },
+];
+
+const industries = [
+  { title: "Real Estate", path: "/industries/real-estate" },
+  { title: "Healthcare", path: "/industries/healthcare" },
+  { title: "E-commerce", path: "/industries/ecommerce" },
+  { title: "Hospitality", path: "/industries/hospitality" },
+  { title: "Education", path: "/industries/education" },
+  { title: "Finance and Fintech", path: "/industries/finance-fintech" },
+  { title: "Construction", path: "/industries/construction" },
+  { title: "Retail", path: "/industries/retail" },
+  { title: "Logistics", path: "/industries/logistics" },
+  { title: "Professional Services", path: "/industries/professional-services" },
+  { title: "Automotive", path: "/industries/automotive" },
+  { title: "Travel and Tourism", path: "/industries/travel-tourism" },
+];
+
+const howWeDeliverLinks = [
+  { title: "Blogs", path: "/blogs" },
+  { title: "News", path: "/news" },
+  { title: "Case Studies", path: "/case-studies" },
+];
+
+const countries = [
+  { label: "UAE", path: "/" },
+  { label: "United Kingdom", path: "/uk" },
+  { label: "Australia", path: "/australia" },
+  { label: "Canada", path: "/canada" },
+  { label: "USA", path: "/usa" },
 ];
 
 const BG_MS = 300;
@@ -32,10 +65,41 @@ const Navbar = ({ className = "" }) => {
   const [contentVisible, setContentVisible] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
+  const [selectedCountry, setSelectedCountry] = useState("UAE");
+  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
+  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
+  const [howWeDeliverOpen, setHowWeDeliverOpen] = useState(false);
+
   const lastScrollY = useRef(0);
+  const countryRef = useRef(null);
+  const whatWeDoRef = useRef(null);
+  const howWeDeliverRef = useRef(null);
 
   useEffect(() => {
     setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (countryRef.current && !countryRef.current.contains(event.target)) {
+        setCountryDropdownOpen(false);
+      }
+
+      if (whatWeDoRef.current && !whatWeDoRef.current.contains(event.target)) {
+        setWhatWeDoOpen(false);
+      }
+
+      if (
+        howWeDeliverRef.current &&
+        !howWeDeliverRef.current.contains(event.target)
+      ) {
+        setHowWeDeliverOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const openMenu = () => {
@@ -73,6 +137,9 @@ const Navbar = ({ className = "" }) => {
         setIsVisible(true);
       } else if (currentScrollY > lastScrollY.current && !overlayMounted) {
         setIsVisible(false);
+        setWhatWeDoOpen(false);
+        setHowWeDeliverOpen(false);
+        setCountryDropdownOpen(false);
       } else if (currentScrollY < lastScrollY.current) {
         setIsVisible(true);
       }
@@ -120,17 +187,68 @@ const Navbar = ({ className = "" }) => {
           </Link>
 
           <ul className="hidden flex-1 items-center justify-center gap-6 text-[10px] text-white md:flex">
-            {navLinks.map((link) => (
-              <li key={link.title}>
-                <Link
-                  href={link.path}
-                  className="flex items-center gap-2 uppercase transition hover:opacity-80"
+            {navLinks.map((link) => {
+              const isWhatWeDo = link.title === "WHAT WE DO";
+              const isHowWeDeliver = link.title === "HOW WE DELIVER";
+
+              return (
+                <li
+                  key={link.title}
+                  ref={
+                    isWhatWeDo
+                      ? whatWeDoRef
+                      : isHowWeDeliver
+                      ? howWeDeliverRef
+                      : null
+                  }
+                  className="relative"
                 >
-                  <span>{link.title}</span>
-                  <FiChevronDown className="text-[0.8rem]" />
-                </Link>
-              </li>
-            ))}
+                  {isWhatWeDo ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setWhatWeDoOpen((prev) => !prev);
+                        setHowWeDeliverOpen(false);
+                        setCountryDropdownOpen(false);
+                      }}
+                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
+                    >
+                      <span>{link.title}</span>
+                      <FiChevronDown
+                        className={`text-[0.8rem] transition-transform duration-300 ${
+                          whatWeDoOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  ) : isHowWeDeliver ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setHowWeDeliverOpen((prev) => !prev);
+                        setWhatWeDoOpen(false);
+                        setCountryDropdownOpen(false);
+                      }}
+                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
+                    >
+                      <span>{link.title}</span>
+                      <FiChevronDown
+                        className={`text-[0.8rem] transition-transform duration-300 ${
+                          howWeDeliverOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.path}
+                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
+                    >
+                      <span>{link.title}</span>
+                      <FiChevronDown className="text-[0.8rem]" />
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </ul>
 
           <div className="hidden items-center gap-4 md:flex">
@@ -146,22 +264,45 @@ const Navbar = ({ className = "" }) => {
               <span className="tracking-wide">+1 000 000 0000</span>
             </div>
 
-            <div className="flex items-center gap-3 text-sm text-white">
-              <Link href="#" className="transition hover:opacity-80">
-                <FaLinkedinIn />
-              </Link>
-              <Link href="#" className="transition hover:opacity-80">
-                <FaPinterestP />
-              </Link>
-              <Link href="#" className="transition hover:opacity-80">
-                <FaInstagram />
-              </Link>
-              <Link href="#" className="transition hover:opacity-80">
-                <FaFacebookF />
-              </Link>
-              <Link href="#" className="transition hover:opacity-80">
-                <FaTiktok />
-              </Link>
+            <div ref={countryRef} className="relative">
+              <button
+                type="button"
+                onClick={() => {
+                  setCountryDropdownOpen((prev) => !prev);
+                  setWhatWeDoOpen(false);
+                  setHowWeDeliverOpen(false);
+                }}
+                className="flex items-center gap-2 whitespace-nowrap text-xs text-white transition hover:opacity-80"
+                aria-label="Select country"
+              >
+                <FiGlobe className="text-base" />
+                <span className="tracking-wide">{selectedCountry}</span>
+                <FiChevronDown
+                  className={`text-sm transition-transform duration-300 ${
+                    countryDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {countryDropdownOpen && (
+                <div className="absolute right-0 top-8 w-48 overflow-hidden rounded-md border border-white/10 bg-[#1f1f1f] shadow-xl">
+                  {countries.map((country) => (
+                    <Link
+                      key={country.label}
+                      href={country.path}
+                      onClick={() => {
+                        setSelectedCountry(country.label);
+                        setCountryDropdownOpen(false);
+                      }}
+                      className={`block px-4 py-3 text-xs text-white transition hover:bg-white/10 ${
+                        selectedCountry === country.label ? "bg-white/10" : ""
+                      }`}
+                    >
+                      {country.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
@@ -182,6 +323,73 @@ const Navbar = ({ className = "" }) => {
             )}
           </button>
         </div>
+
+        {whatWeDoOpen && (
+          <div className="hidden border-t border-white/10 bg-[#1f1f1f] px-4 py-12 text-white md:block">
+            <div className="mx-auto grid max-w-6xl grid-cols-2 gap-20">
+              <div>
+                <h3 className="mb-7 text-sm font-medium text-white/45">
+                  Capabilities
+                </h3>
+
+                <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+                  {capabilities.map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.path}
+                      onClick={() => setWhatWeDoOpen(false)}
+                      className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="mb-7 text-sm font-medium text-white/45">
+                  Industries
+                </h3>
+
+                <div className="grid grid-cols-2 gap-x-10 gap-y-5">
+                  {industries.map((item) => (
+                    <Link
+                      key={item.title}
+                      href={item.path}
+                      onClick={() => setWhatWeDoOpen(false)}
+                      className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
+                    >
+                      {item.title}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {howWeDeliverOpen && (
+          <div className="hidden border-t border-white/10 bg-[#1f1f1f] px-4 py-12 text-white md:block">
+            <div className="mx-auto max-w-6xl">
+              <h3 className="mb-7 text-sm font-medium text-white/45">
+                How We Deliver
+              </h3>
+
+              <div className="grid max-w-2xl grid-cols-3 gap-x-16 gap-y-5">
+                {howWeDeliverLinks.map((item) => (
+                  <Link
+                    key={item.title}
+                    href={item.path}
+                    onClick={() => setHowWeDeliverOpen(false)}
+                    className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {hasMounted &&
@@ -226,6 +434,35 @@ const Navbar = ({ className = "" }) => {
                       ))}
                     </ul>
 
+                    <div className="mt-10 border-t border-white/10 pt-8">
+                      <div className="mb-5 flex items-center gap-3 text-white">
+                        <FiGlobe className="text-xl" />
+                        <span className="text-[16px] font-medium uppercase tracking-wide">
+                          Select Country
+                        </span>
+                      </div>
+
+                      <div className="flex flex-col gap-4">
+                        {countries.map((country) => (
+                          <Link
+                            key={country.label}
+                            href={country.path}
+                            onClick={() => {
+                              setSelectedCountry(country.label);
+                              closeMenu();
+                            }}
+                            className={`text-[15px] text-white/80 transition hover:text-white ${
+                              selectedCountry === country.label
+                                ? "text-white"
+                                : ""
+                            }`}
+                          >
+                            {country.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="mt-14 space-y-4">
                       <Link
                         href="/join-us"
@@ -242,24 +479,6 @@ const Navbar = ({ className = "" }) => {
                       >
                         Let&apos;s Talk Business
                       </Link>
-                    </div>
-
-                    <div className="mt-10 flex items-center justify-center gap-6 text-xl text-white/90">
-                      <a href="#" aria-label="LinkedIn" className="transition hover:opacity-80">
-                        <FaLinkedinIn />
-                      </a>
-                      <a href="#" aria-label="Pinterest" className="transition hover:opacity-80">
-                        <FaPinterestP />
-                      </a>
-                      <a href="#" aria-label="Instagram" className="transition hover:opacity-80">
-                        <FaInstagram />
-                      </a>
-                      <a href="#" aria-label="Facebook" className="transition hover:opacity-80">
-                        <FaFacebookF />
-                      </a>
-                      <a href="#" aria-label="TikTok" className="transition hover:opacity-80">
-                        <FaTiktok />
-                      </a>
                     </div>
                   </div>
                 </div>
