@@ -48,10 +48,7 @@ const howWeDeliverLinks = [
 
 const countries = [
   { label: "UAE", path: "/" },
-  { label: "United Kingdom", path: "/uk" },
-  { label: "Australia", path: "/australia" },
-  { label: "Canada", path: "/canada" },
-  { label: "USA", path: "/usa" },
+  { label: "Global", path: "/" },
 ];
 
 const BG_MS = 300;
@@ -256,12 +253,12 @@ const Navbar = ({ className = "" }) => {
               <span className="flex h-5 w-5 items-center justify-center text-[10px]">
                 <FiPhoneCall />
               </span>
-              <span className="tracking-wide">+1 000 000 0000</span>
+              <span className="tracking-wide">+971 50 415 3813</span>
             </div>
 
             <div className="flex items-center gap-2 whitespace-nowrap text-xs text-white">
               <FaWhatsapp className="text-base" />
-              <span className="tracking-wide">+1 000 000 0000</span>
+              <span className="tracking-wide">+971 50 415 3813</span>
             </div>
 
             <div ref={countryRef} className="relative">

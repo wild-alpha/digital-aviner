@@ -22,7 +22,7 @@ const WhatsAppButton1 = () => {
 
   const handleClick = () => {
     // Format the WhatsApp URL with your number
-    const whatsappUrl = `https://wa.me/${+971588075603}`;
+    const whatsappUrl = `https://wa.me/${+971504153813}`;
     // Open the WhatsApp URL in a new tab
     window.open(whatsappUrl, '_blank');
   };

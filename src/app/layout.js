@@ -2,9 +2,9 @@ import './globals.css';
 
 // Metadata configuration
 export const metadata = {
-  title: "AI Powered Software Solutions & Lead Generation Agency - Digital Aviner",
+  title: "Agentic AI Marketing Agency for Global Brands | Digital Aviner",
   description:
-    "Digital Aviner offering unparalleled AI powered software solutions and lead generation services across the world including Dubai.",
+    "Digital Aviner pairs strategists with autonomous AI agents that optimize campaigns in real time, for brands scaling into new global markets.",
   alternates: {
     canonical: "https://digitalaviner.com/",
   },

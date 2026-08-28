@@ -82,7 +82,7 @@ export default function Features({
   achievementsEyebrow = "PIONEERING TRUST AND INNOVATION",
   achievementsTitle = "Our Achievements",
   achievementsBody =
-    "We take pride in empowering businesses worldwide with innovative solutions.\n\nDevsinc’s bring an unwavering commitment to excellence, backed by a global presence.",
+    "We take pride in empowering businesses worldwide with innovative solutions.\n\nDigital Aviner’s bring an unwavering commitment to excellence, backed by a global presence.",
   achievementsCtaLabel = "Get in Touch",
   achievementsCtaHref = "/contact",
 

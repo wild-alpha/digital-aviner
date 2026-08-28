@@ -6,7 +6,7 @@ const HeroSection = ({
   className = "",
   videoSrcMp4 = "/videos/hero.mp4",
   posterSrc,
-  heading = "Building at the Speed of AI",
+  heading = "Agentic AI Marketing Agency — Human Strategy, Autonomous Execution",
   subheading =
     "We help companies across UAE, UK, Australia, USA and Canada with technological development",
   ctaLabel = "Get in Touch",

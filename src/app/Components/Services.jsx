@@ -139,7 +139,7 @@ export default function Services({
       </div>
 
       {showSideCta && (
-        <div className="absolute right-0 top-44 z-20 hidden md:block">
+        <div className="absolute right-0 top-42 z-20 hidden md:block">
           <Link
             href={sideCtaHref}
             className="inline-flex items-center justify-center rounded-l-2xl bg-[#33C7C2] px-4 py-3 text-sm font-semibold text-black shadow-lg transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/40"
