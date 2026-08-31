@@ -14,7 +14,7 @@ const CallButton1 = () => {
   return (
     <button
       onClick={handleClick}
-      className="bg-[#c38d90] text-white font-bold py-2 px-3.5 rounded-full flex items-center space-x-2 sm:py-4 sm:px-4 animate-pulse md:hidden"
+      className="bg-[#34C7C2] text-white font-bold py-2 px-3.5 rounded-full flex items-center space-x-2 sm:py-4 sm:px-4 animate-pulse md:hidden"
       style={{
         bottom: '60px',
         right: '2px',

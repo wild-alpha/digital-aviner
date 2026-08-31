@@ -14,7 +14,7 @@ const CallButton = () => {
       type="button"
       onClick={handleClick}
       aria-label="Call us"
-      className="fixed bottom-[60px] right-[40px] z-[9999] flex items-center rounded-full bg-[#c38d90] px-6 py-6 font-bold text-white animate-pulse sm:px-4 sm:py-4 md:hidden"
+      className="fixed bottom-[60px] right-[40px] z-[9999] flex items-center rounded-full bg-[#34C7C2] px-6 py-6 font-bold text-white animate-pulse sm:px-4 sm:py-4 md:hidden"
     >
       <FaPhoneAlt className="text-2xl" />
     </button>
