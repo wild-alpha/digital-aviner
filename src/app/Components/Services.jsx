@@ -1,191 +1,158 @@
-"use client";
-
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { FiArrowRight } from "react-icons/fi";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, FreeMode } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/free-mode";
-
-const logos = [
-  { src: "/images/logos/logo-1.png", alt: "Client 1" },
-  { src: "/images/logos/logo-2.png", alt: "Client 2" },
-  { src: "/images/logos/logo-3.png", alt: "Client 3" },
-  { src: "/images/logos/logo-4.png", alt: "Client 4" },
-  { src: "/images/logos/logo-5.png", alt: "Client 5" },
-  { src: "/images/logos/logo-6.png", alt: "Client 6" },
-  { src: "/images/logos/logo-7.png", alt: "Client 7" },
-  { src: "/images/logos/logo-8.png", alt: "Client 8" },
-];
-
+/* ------------------------------------------------------------------
+   SERVICES
+   Six cards, two tracks. Every href matches its label and its alt text.
+   URL scheme: root-level slugs. Keep the navbar and the Service schema
+   nodes on these exact paths.
+------------------------------------------------------------------ */
 const services = [
   {
-    title: "Lead Generation",
-    image: "/images/lead-generation.webp",
-    href: "/services/online-business-development",
-    alt: "Online Business Development Services in Dubai UAE",
-    imageTitle: "Online Business Development Services",
+    title: "SEO & AI Search Visibility",
+    href: "/",
+    image: "/images/seo.webp",
+    alt: "Search performance dashboard showing organic ranking growth",
+    description:
+      "Rank in Google and get cited in AI answers, across Gulf and Western search markets.",
   },
   {
-    title: "Agentic AI",
-    image: "/images/agentic-ai.webp",
-    href: "/services/business-branding",
-    alt: "Business Branding Services in Dubai UAE",
-    imageTitle: "Business Branding Services",
+    title: "Performance Marketing",
+    href: "/",
+    image: "/images/performance-marketing.webp",
+    alt: "Paid media analytics across search and social platforms",
+    description:
+      "Google, Meta, LinkedIn and TikTok campaigns managed to cost per qualified lead, not impressions.",
   },
   {
-    title: "Generative AI",
-    image: "/images/generative-ai.webp",
-    href: "/services/digital-marketing-services",
-    alt: "Digital Marketing Services in Dubai UAE",
-    imageTitle: "Digital Marketing Agency Dubai",
-  },
-  {
-    title: "AI Agents On Demand",
-    image: "/images/ai-agents-on-demand.webp",
-    href: "/services/business-branding",
-    alt: "Business Branding Services in Dubai UAE",
-    imageTitle: "Business Branding Services",
-  },
-  {
-    title: "Digital Marketing",
-    image: "/images/digital-marketing.webp",
-    href: "/services/performance-marketing-services",
-    alt: "Performance Marketing Services in Dubai UAE",
-    imageTitle: "Performance Marketing Experts Dubai",
-  },
-  {
-    title: "Cloud Computing",
-    image: "/images/cloud-computing.webp",
-    href: "/services/local-business-optimization",
-    alt: "Local Business Optimization Services in Dubai UAE",
-    imageTitle: "Local Business Optimization Dubai",
-  },
-  {
-    title: "Saas",
-    image: "/images/saas.webp",
-    href: "/services/local-business-optimization",
-    alt: "Local Business Optimization Services in Dubai UAE",
-    imageTitle: "Local Business Optimization Dubai",
-  },
-  {
-    title: "Mobile App Development",
-    image: "/images/app-development.webp",
-    href: "/services/seo-services",
-    alt: "SEO Services in Dubai UAE",
-    imageTitle: "Professional SEO Services Dubai",
-  },
-  {
-    title: "Web Development",
+    title: "Web Design & Development",
+    href: "/",
     image: "/images/web-development.webp",
-    href: "/services/design-development",
-    alt: "Design and Development Services in Dubai UAE",
-    imageTitle: "Design and Development Services",
+    alt: "Responsive website interface shown on desktop and mobile",
+    description:
+      "Fast, search-ready sites built to convert the traffic your campaigns bring in.",
+  },
+  {
+    title: "Lead Generation",
+    href: "/",
+    image: "/images/lead-generation.webp",
+    alt: "Sales pipeline view tracking qualified inbound enquiries",
+    description:
+      "Inbound and outbound systems that fill your pipeline with buyers who match your ICP.",
+  },
+  {
+    title: "Agentic AI Marketing",
+    href: "/",
+    image: "/images/agentic-ai-marketing.webp",
+    alt: "Autonomous marketing agent adjusting live campaign settings",
+    description:
+      "Autonomous agents that adjust bids, budgets and creative every hour your campaigns run.",
+  },
+  {
+    title: "AI Agents & Automation",
+    href: "/",
+    image: "/images/ai-agents.webp",
+    alt: "Connected AI agents handling marketing workflow tasks",
+    description:
+      "Custom agents that handle qualification, follow-up and reporting so your team doesn't have to.",
   },
 ];
 
 export default function Services({
   className = "",
   eyebrow = "OUR SERVICES",
-  title = "Transform Your Business",
-  showSideCta = true,
-  sideCtaLabel = "Let's Talk Business",
-  sideCtaHref = "/contact",
+  title = (
+    <>
+      Digital marketing and{" "}
+      <span className="text-[#33C7C2]">agentic AI</span>, under one roof
+    </>
+  ),
+  ctaLabel = "",
+  ctaHref = "/",
 }) {
   return (
-    <section className={`relative overflow-hidden bg-black text-white ${className}`}>
-      {/*
-      <div className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-4">
-          <Swiper
-            modules={[Autoplay, FreeMode]}
-            loop={true}
-            freeMode={true}
-            speed={3500}
-            autoplay={{ delay: 0, disableOnInteraction: false }}
-            slidesPerView={3.5}
-            spaceBetween={26}
-            breakpoints={{
-              480: { slidesPerView: 4.5 },
-              768: { slidesPerView: 6.5 },
-              1024: { slidesPerView: 8.5 },
-            }}
-            className="!overflow-visible"
-          >
-            {[...logos, ...logos].map((logo, index) => (
-              <SwiperSlide key={`${logo.alt}-${index}`} className="!w-auto">
-                <div className="flex h-14 items-center justify-center px-3">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={120}
-                    height={40}
-                    className="h-8 w-auto object-contain opacity-90"
-                    loading="lazy"
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </div>
-      */}
+    <section
+      aria-labelledby="services-heading"
+      className={`relative overflow-hidden bg-[var(--ink-900)] text-white ${className}`}
+    >
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+      >
+        <div className="absolute inset-0 [background:radial-gradient(900px_520px_at_40%_35%,rgba(51,199,194,0.20),rgba(51,199,194,0)_60%)]" />
 
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 [background:radial-gradient(900px_520px_at_40%_35%,rgba(51,199,194,0.22),rgba(0,0,0,0)_60%)]" />
-        <div className="absolute inset-0 [background:radial-gradient(1100px_740px_at_75%_55%,rgba(51,199,194,0.18),rgba(0,0,0,0)_64%)]" />
+        <div className="absolute inset-0 [background:radial-gradient(1100px_740px_at_75%_55%,rgba(51,199,194,0.16),rgba(51,199,194,0)_64%)]" />
       </div>
 
-      {showSideCta && (
-        <div className="absolute right-0 top-42 z-20 hidden md:block">
-          <Link
-            href={sideCtaHref}
-            className="inline-flex items-center justify-center rounded-l-2xl bg-[#33C7C2] px-4 py-3 text-sm font-semibold text-black shadow-lg transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/40"
-            style={{ transform: "rotate(-90deg)", transformOrigin: "right top" }}
-          >
-            {sideCtaLabel}
-          </Link>
-        </div>
-      )}
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 md:px-10 md:py-24">
-        <p className="text-[12px] tracking-[0.35em] text-[#33C7C2]">
+      <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 sm:px-8 md:px-10 md:py-8">
+        <p className="text-[12px] font-medium tracking-[0.3em] text-[#33C7C2]">
           {eyebrow}
         </p>
 
-        <h2 className="mt-3 text-4xl font-extrabold tracking-tight md:text-6xl">
+        <h2
+          id="services-heading"
+          className="mt-4 max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl"
+        >
           {title}
         </h2>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-3">
-          {services.map((service, index) => (
+        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => (
             <Link
-              key={`${service.title}-${index}`}
+              key={service.href}
               href={service.href}
-              className="group relative overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 transition hover:ring-white/25"
+              className="group relative block overflow-hidden rounded-2xl ring-1 ring-[var(--line)] transition hover:ring-[#33C7C2]/60 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#33C7C2]"
             >
-              <div className="relative h-[120px] w-full md:h-[300px]">
+              <article className="relative h-[260px] w-full md:h-[320px]">
+
+                {/* Background Image */}
                 <Image
                   src={service.image}
                   alt={service.alt}
-                  title={service.imageTitle}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover opacity-85 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-95"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="z-0 object-cover transition duration-500 group-hover:scale-[1.04] motion-reduce:transition-none"
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-black/10" />
+                {/* Dark Overlay */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 z-10 bg-black/35"
+                />
 
-                <div className="absolute left-5 right-5 top-5">
-                  <p className="text-2xl font-extrabold leading-tight md:text-[26px]">
+                {/* Bottom Gradient */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent"
+                />
+
+                {/* Card Content */}
+                <div className="absolute inset-x-0 bottom-0 z-20 p-6">
+                  <h3 className="text-xl font-bold leading-tight md:text-2xl">
                     {service.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-relaxed text-white/75">
+                    {service.description}
                   </p>
+
+                 
                 </div>
-              </div>
+              </article>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-12">
+          <Link
+            href={ctaHref}
+            className="inline-flex items-center gap-2 rounded-full bg-[#33C7C2] px-8 py-4 text-sm font-semibold text-[var(--on-brand)] transition hover:bg-[#33C7C2]/90 motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--ink-900)]"
+          >
+            {ctaLabel}
+            <FiArrowRight aria-hidden="true" />
+          </Link>
         </div>
       </div>
     </section>

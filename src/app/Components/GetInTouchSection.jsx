@@ -4,14 +4,12 @@ import React, { useMemo, useState } from "react";
 import { FiGlobe, FiUsers } from "react-icons/fi";
 
 const SERVICE_OPTIONS = [
-  { key: "remote-it", label: "Remote IT Resources" },
+   { key: "marketing-services", label: "Marketing Services" },
+  { key: "ai-powered-seo", label: "AI-Powered SEO, GEO, AEO & Google Ads" },
+  { key: "end-to-end-ai", label: "End-to-End Agentic AI Solutions" },
   { key: "custom-software", label: "Custom Software Development" },
   { key: "web-dev", label: "Web Development" },
   { key: "mobile-dev", label: "Mobile App Development" },
-  { key: "ar-vr", label: "AR/VR" },
-  { key: "gaming", label: "Gaming" },
-  { key: "cyber", label: "Cyber Security" },
-  { key: "other", label: "Other IT Services" },
 ];
 
 export default function GetInTouchSection({
@@ -183,11 +181,11 @@ export default function GetInTouchSection({
                         <option value="" disabled>
                           Select Region
                         </option>
-                        <option value="mena">MENA</option>
-                        <option value="europe">Europe</option>
+                        <option value="mena">South Asia</option>
+                        <option value="europe">Middle East</option>
                         <option value="north-america">North America</option>
                         <option value="south-america">South America</option>
-                        <option value="asia">Asia</option>
+                        <option value="asia">Canada</option>
                         <option value="australia">Australia</option>
                       </select>
                     </div>
@@ -284,12 +282,7 @@ export default function GetInTouchSection({
                     We’re across 5 continents.
                   </p>
 
-                  <a
-                    href="/locations"
-                    className="mt-5 inline-flex items-center justify-center rounded-full bg-[#16b7b0] px-5 py-2 text-xs font-semibold text-black transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/25"
-                  >
-                    Learn more
-                  </a>
+                 
                 </div>
 
                 <div>
@@ -305,12 +298,7 @@ export default function GetInTouchSection({
                     Our capability and competencies are backed by diverse Global leadership.
                   </p>
 
-                  <a
-                    href="/leadership"
-                    className="mt-5 inline-flex items-center justify-center rounded-full bg-[#16b7b0] px-5 py-2 text-xs font-semibold text-black transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/25"
-                  >
-                    Learn more
-                  </a>
+               
                 </div>
               </div>
 

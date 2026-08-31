@@ -1,75 +1,105 @@
-"use client";
-
 import Image from "next/image";
-import React from "react";
 
+/* ------------------------------------------------------------------
+   CONTENT
+   Kept as data so copy edits don't mean touching markup.
+------------------------------------------------------------------ */
+const whyChooseUs = [
+  "Two service tracks: Digital Marketing (SEO, paid media, social and content, conversion optimisation) and Agentic AI (autonomous marketing agents, conversational agents, automation, predictive analytics).",
+  "Campaigns are optimised continuously by AI agents rather than reviewed on a weekly or monthly cycle.",
+  "Independent and specialist: marketing judgment and agent engineering sit under one roof, so strategy and execution never wait on each other.",
+  "Markets served: United Arab Emirates, Saudi Arabia, United States, United Kingdom, Canada and Australia.",
+  "Head office and global delivery centre in Okara, Punjab, Pakistan, with a UAE contact number and Gulf working hours.",
+];
+
+const whoWeHelp = [
+  "Marketing and growth leads evaluating whether to bring AI agents into their marketing operations, not just their product.",
+  "Founders and CMOs frustrated with agencies that report results monthly instead of adjusting in real time.",
+  "Teams expanding into a new market who need strategy and execution together rather than a platform to run themselves.",
+];
 
 const AboutSection = () => {
   return (
     <section
-  id="about-us"
-  className="
-    bg-[url('/images/bg-sec-3-mobile.webp')] 
-    sm:bg-[url('/images/bg-sec-3.webp')] 
-    bg-cover 
-    bg-center 
-    bg-no-repeat 
-    text-white 
-    overflow-hidden"
->
-      {/* Top Intro Text */}
-      <div className="px-4 sm:px-6 md:px-12 lg:px-20 xl:px-28 pt-6 text-center text-[12px] sm:text-base max-w-6xl mx-auto font-play">
-        <p>
-        Digital Aviner is an agentic AI marketing agency: marketing strategists paired with autonomous AI agents that run campaign execution in real time, for brands expanding across the UAE, Saudi Arabia, the US, UK, Canada, and Australia. Where a traditional agency reviews performance weekly and a software house sells you agent infrastructure without marketing judgment, Digital Aviner does both at once — a strategist sets the direction, and an AI agent keeps pursuing it every hour the campaign is live.</p>
-      </div>
+      id="about-us"
+      aria-labelledby="about-heading"
+      className="relative isolate overflow-hidden text-white"
+    >
+     
 
+      {/* Scrim — guarantees text contrast regardless of the photograph beneath. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[var(--ink-900)]/75"
+      />
 
-
-      {/* Wireframe and Content Section */}
-      <div className="relative px-4 sm:px-6 md:px-12 lg:px-20 xl:px-28 py-4 md:py-12 bg-no-repeat bg-cover bg-[url('/images/mobile-wire.svg')] lg:bg-[url('/images/desktop-wire.svg')]">
-
-        {/* Why Choose Digital Aviner */}
-        <div className="text-center">
-          <h2 className="text-[12px] sm:text-xl text-white tracking-widest font-conthrax py-0 md:py-3">
-            WHY CHOOSE DIGITAL AVINER?
+      <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8 md:py-6">
+        {/* Positioning statement — the strongest entity signal on the page. */}
+        <div className="max-w-4xl">
+          <h2
+            id="about-heading"
+            className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl"
+          >
+            An <span className="text-[#33C7C2]">agentic AI</span>{" "}
+            marketing agency
           </h2>
-      <ul className="max-w-6xl text-left mx-auto mt-0 md:mt-4 text-[12px] sm:text-base py-2 md:py-3 font-play list-disc pl-5">
-        <li className="py-2">
-          Two service tracks: Digital Marketing (SEO, paid media, social & content, conversion optimization) and Agentic AI (autonomous marketing agents, conversational agents, automation, predictive analytics)
-        </li>
-        <li className="py-2">
-          Campaigns are optimized continuously by AI agents, not reviewed on a weekly or monthly cycle.
-        </li>
-         <li className="py-2">
-          Independent agency — not a software/IT staffing house, not a legacy creative-only agency.
-        </li>
-         <li className="py-2">
-          Markets served: United Arab Emirates, Saudi Arabia, United States, United Kingdom, Canada, Australia.
-        </li>
-         <li className="py-2">
-          Founded in 2025, with a team of 6 members, headquartered in Okara, Punjab, Pakistan.
-        </li>
-      </ul>
-        </div>
-                {/* CTA */}
-        <div className="text-left">
-          <h2 className="text-[12px] mt-6 sm:text-xl text-white tracking-widest font-conthrax">
-            WHO WE HELP?
-          </h2>
-      <ul className="max-w-6xl text-left mx-auto mt-0 md:mt-4 text-[12px] sm:text-base font-play list-disc pl-5">
-        <li className="py-2">
-          Marketing or growth leads evaluating whether to bring AI agents into their marketing operations, not just their product.
-        </li>
-        <li className="py-2">
-          Founders and CMOs frustrated with agencies that report results monthly instead of adjusting in real time.
-        </li>
-         <li className="py-2">
-          Teams expanding into a new market — UAE, KSA, US, UK, Canada, or Australia — who need strategy and execution together, not just a platform.
-        </li>
-      </ul>
+
+          <p className="mt-6 text-base leading-relaxed text-[var(--text-70)] sm:text-lg">
+            Digital Aviner pairs marketing strategists with autonomous AI agents
+            that run campaign execution in real time, for brands expanding
+            across the UAE, Saudi Arabia, the US, the UK, Canada and Australia.
+          </p>
+
+          <p className="mt-4 text-base leading-relaxed text-[var(--text-70)] sm:text-lg">
+            A traditional agency reviews performance weekly. A software house
+            sells you agent infrastructure without marketing judgment. We do
+            both at once: a strategist sets the direction, and an AI agent keeps
+            pursuing it every hour the campaign is live.
+          </p>
         </div>
 
-        
+        {/* Wireframe panel */}
+        <div className="mt-6 bg-[url('/images/mobile-wire.svg')] bg-cover bg-center bg-no-repeat lg:bg-[url('/images/desktop-wire.svg')]">
+          <div className="grid gap-12 py-6 md:grid-cols-2 md:gap-16 md:py-6">
+            <div>
+              <h2 className="font-semibold text-lg tracking-widest text-[#33C7C2] sm:text-xl">
+                WHY CHOOSE DIGITAL AVINER
+              </h2>
+              <ul className="mt-6 space-y-4">
+                {whyChooseUs.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-[#33C7C2]"
+                    />
+                    <span className="text-[15px] leading-relaxed text-[var(--text-70)] sm:text-base">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h2 className="font-semibold text-lg tracking-widest text-[#33C7C2] sm:text-xl">
+                WHO WE HELP
+              </h2>
+              <ul className="mt-6 space-y-4">
+                {whoWeHelp.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-[#33C7C2]"
+                    />
+                    <span className="text-[15px] leading-relaxed text-[var(--text-70)] sm:text-base">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -8,35 +8,45 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const defaultGroups = [
   {
+    title: "Services",
+    links: [
+      { label: "SEO & AI Search Visibility", href: "/services/seo" },
+      { label: "Performance Marketing", href: "/services/performance-marketing" },
+      { label: "Web Design & Development", href: "/services/web-development" },
+      { label: "Lead Generation", href: "/services/lead-generation" },
+      { label: "Agentic AI Marketing", href: "/services/agentic-ai-marketing" },
+      { label: "AI Agents & Automation", href: "/services/ai-agents" },
+    ],
+  },
+  {
+    title: "Industries",
+    links: [
+      {
+        label: "Interior Design & Fit-Out",
+        href: "/industries/interior-design-fit-out",
+      },
+      { label: "Real Estate & Property", href: "/industries/real-estate" },
+      { label: "Hospitality & Restaurants", href: "/industries/hospitality" },
+      { label: "Retail & E-commerce", href: "/industries/retail-ecommerce" },
+      {
+        label: "Construction & Architecture",
+        href: "/industries/construction-architecture",
+      },
+    ],
+  },
+  {
     title: "Company",
     links: [
-      { label: "Home", href: "/" },
-      { label: "About", href: "/who-we-are" },
-      { label: "Careers", href: "/join-us" },
+      { label: "Who We Are", href: "/who-we-are" },
+      { label: "Join Digital Aviner", href: "/join-us" },
+      { label: "Let's Talk Business", href: "/contact" },
     ],
   },
   {
-    title: "Industries We Serve",
-    links: [
-      { label: "Hospitality", href: "/industries/hospitality" },
-      { label: "Retail", href: "/industries/retail" },
-      { label: "Healthcare", href: "/industries/healthcare" },
-    ],
-  },
-  {
-    title: "Services and Solutions",
-    links: [
-      { label: "AI & ML", href: "/services/ai-ml" },
-      { label: "Web Development", href: "/services/web" },
-      { label: "Mobile Apps", href: "/services/mobile" },
-    ],
-  },
-  {
-    title: "Resources",
+    title: "Insights",
     links: [
       { label: "Blog", href: "/blog" },
       { label: "Case Studies", href: "/case-studies" },
-      { label: "FAQs", href: "/faqs" },
     ],
   },
 ];
@@ -72,7 +82,11 @@ function FooterAnchor({ link, className = "", onClick }) {
   }
 
   return (
-    <Link href={link.href} className={`${base} ${className}`} onClick={onClick}>
+    <Link
+      href={link.href}
+      className={`${base} ${className}`}
+      onClick={onClick}
+    >
       {link.label}
     </Link>
   );
@@ -98,7 +112,9 @@ function useCloseOnOutside({
         if (target.closest(sel)) return;
       }
 
-      if (containerRef?.current && containerRef.current.contains(target)) return;
+      if (containerRef?.current && containerRef.current.contains(target)) {
+        return;
+      }
 
       onClose();
     };
@@ -139,7 +155,10 @@ const Footer = ({
   useCloseOnOutside({
     isOpen: !!openMobile,
     onClose: () => setOpenMobile(null),
-    ignoreSelectors: ["[data-footer-mobile-trigger]", "[data-footer-mobile-card]"],
+    ignoreSelectors: [
+      "[data-footer-mobile-trigger]",
+      "[data-footer-mobile-card]",
+    ],
   });
 
   const toggleDesktop = (title) =>
@@ -149,12 +168,17 @@ const Footer = ({
     setOpenMobile((prev) => (prev === title ? null : title));
 
   return (
-    <footer className={`relative overflow-hidden bg-black text-white ${className}`}>
+    <footer
+      id="footer"
+      className={`relative overflow-hidden scroll-mt-24 bg-black text-white ${className}`}
+    >
+      {/* Mobile Background */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[38%] md:hidden">
         <div className="absolute inset-0 bg-gradient-to-t from-[#33C7C2]/55 via-[#33C7C2]/18 to-transparent" />
         <div className="absolute -right-28 -bottom-28 h-[460px] w-[460px] rounded-full bg-[#33C7C2]/45 blur-[130px]" />
       </div>
 
+      {/* Desktop Background */}
       <div className="pointer-events-none absolute inset-0 hidden md:block">
         <div className="absolute inset-0 [background:linear-gradient(90deg,rgba(0,0,0,1)_0%,rgba(0,0,0,1)_42%,rgba(51,199,194,0.42)_100%)]" />
         <div className="absolute inset-0 opacity-80 [background:radial-gradient(980px_780px_at_88%_55%,rgba(51,199,194,0.62),rgba(0,0,0,0)_65%)]" />
@@ -162,12 +186,16 @@ const Footer = ({
         <div className="absolute -right-24 bottom-[-340px] h-[840px] w-[840px] rounded-full bg-[#33C7C2]/16 blur-[185px]" />
       </div>
 
+      {/* Side CTA */}
       {showSideCta && (
         <div className="absolute right-0 top-28 z-20">
           <Link
             href={sideCtaHref}
             className="inline-flex items-center justify-center rounded-l-2xl bg-[#33C7C2] px-4 py-3 text-sm font-semibold text-black shadow-lg transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/50"
-            style={{ transform: "rotate(-90deg)", transformOrigin: "right top" }}
+            style={{
+              transform: "rotate(-90deg)",
+              transformOrigin: "right top",
+            }}
           >
             {sideCtaLabel}
           </Link>
@@ -176,10 +204,16 @@ const Footer = ({
 
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-14">
         <div className="flex items-start justify-between gap-8">
+          {/* Logo */}
           <div className="flex w-full justify-center md:w-auto md:justify-start">
-            <img src={logoSrc} alt={logoAlt} className="h-8 w-auto object-contain" />
+            <img
+              src={logoSrc}
+              alt={logoAlt}
+              className="h-8 w-auto object-contain"
+            />
           </div>
 
+          {/* Desktop Navigation */}
           <div
             ref={desktopWrapRef}
             className="hidden flex-1 items-start justify-end gap-12 md:flex"
@@ -196,6 +230,7 @@ const Footer = ({
                     aria-expanded={isOpen}
                   >
                     {g.title}
+
                     <FiChevronDown
                       className={`text-[#33C7C2] transition-transform duration-300 ${
                         isOpen ? "rotate-180" : ""
@@ -206,20 +241,18 @@ const Footer = ({
                   <div
                     className={`absolute left-0 top-full mt-5 w-[240px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       isOpen
-                        ? "translate-y-0 opacity-100 pointer-events-auto"
-                        : "-translate-y-2 opacity-0 pointer-events-none"
+                        ? "pointer-events-auto translate-y-0 opacity-100"
+                        : "pointer-events-none -translate-y-2 opacity-0"
                     }`}
                   >
                     <div className="rounded-2xl bg-white p-4 shadow-2xl">
                       <ul className="space-y-1">
-                        {g.links.map((l, idx) => (
+                        {g.links.map((l) => (
                           <li key={l.label}>
                             <FooterAnchor
                               link={l}
                               onClick={() => setOpenDesktop(null)}
-                              className={`w-full rounded-xl px-3 py-2 text-[17px] ${
-                                idx === 0 ? "text-[#1E63FF]" : "text-black"
-                              } hover:bg-black/5`}
+                              className="w-full rounded-xl px-3 py-2 text-[17px] text-black hover:bg-black/5"
                             />
                           </li>
                         ))}
@@ -232,6 +265,7 @@ const Footer = ({
           </div>
         </div>
 
+        {/* Mobile Navigation */}
         <div className="mt-6 md:hidden">
           {groups.map((g) => {
             const isOpen = openMobile === g.title;
@@ -246,6 +280,7 @@ const Footer = ({
                   aria-expanded={isOpen}
                 >
                   {g.title}
+
                   <FiChevronDown
                     className={`text-[#33C7C2] transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
@@ -257,20 +292,18 @@ const Footer = ({
                   data-footer-mobile-card
                   className={`absolute left-0 top-full mt-3 w-[220px] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     isOpen
-                      ? "translate-y-0 opacity-100 pointer-events-auto"
-                      : "-translate-y-2 opacity-0 pointer-events-none"
+                      ? "pointer-events-auto translate-y-0 opacity-100"
+                      : "pointer-events-none -translate-y-2 opacity-0"
                   }`}
                 >
                   <div className="rounded-2xl bg-white p-4 shadow-2xl">
                     <ul className="space-y-1">
-                      {g.links.map((l, idx) => (
+                      {g.links.map((l) => (
                         <li key={l.label}>
                           <FooterAnchor
                             link={l}
                             onClick={() => setOpenMobile(null)}
-                            className={`w-full rounded-xl px-3 py-2 text-[17px] ${
-                              idx === 0 ? "text-[#1E63FF]" : "text-black"
-                            } hover:bg-black/5`}
+                            className="w-full rounded-xl px-3 py-2 text-[17px] text-black hover:bg-black/5"
                           />
                         </li>
                       ))}
@@ -282,6 +315,7 @@ const Footer = ({
           })}
         </div>
 
+        {/* Email */}
         <div className="mt-10">
           <a
             href={`mailto:${email}`}
@@ -291,24 +325,49 @@ const Footer = ({
           </a>
         </div>
 
+        {/* Bottom Area */}
         <div className="mt-10 flex flex-col gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap gap-x-10 gap-y-4 text-sm text-white/80">
             {legalLinks.map((l) => (
-              <FooterAnchor key={l.label} link={l} className="hover:text-white" />
+              <FooterAnchor
+                key={l.label}
+                link={l}
+                className="hover:text-white"
+              />
             ))}
           </div>
 
+          {/* Social Icons */}
           <div className="flex items-center justify-center gap-5 text-2xl text-white/90 md:justify-end">
-            <a href={socialLinks[0]?.href || "#"} aria-label="Facebook" className="transition hover:opacity-80">
+            <a
+              href={socialLinks[0]?.href || "#"}
+              aria-label="Facebook"
+              className="transition hover:opacity-80"
+            >
               <FaFacebookF />
             </a>
-            <a href={socialLinks[1]?.href || "#"} aria-label="LinkedIn" className="transition hover:opacity-80">
+
+            <a
+              href={socialLinks[1]?.href || "#"}
+              aria-label="LinkedIn"
+              className="transition hover:opacity-80"
+            >
               <FaLinkedinIn />
             </a>
-            <a href={socialLinks[2]?.href || "#"} aria-label="Instagram" className="transition hover:opacity-80">
+
+            <a
+              href={socialLinks[2]?.href || "#"}
+              aria-label="Instagram"
+              className="transition hover:opacity-80"
+            >
               <FaInstagram />
             </a>
-            <a href={socialLinks[3]?.href || "#"} aria-label="X" className="transition hover:opacity-80">
+
+            <a
+              href={socialLinks[3]?.href || "#"}
+              aria-label="X"
+              className="transition hover:opacity-80"
+            >
               <FaXTwitter />
             </a>
           </div>

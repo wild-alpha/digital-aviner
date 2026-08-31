@@ -1,481 +1,1042 @@
 "use client";
 
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+} from "react";
 import { createPortal } from "react-dom";
-import { FiChevronDown, FiPhoneCall, FiX, FiGlobe } from "react-icons/fi";
-import { FaWhatsapp } from "react-icons/fa";
+import {
+  FiChevronDown,
+  FiPhoneCall,
+  FiX,
+  FiArrowRight,
+} from "react-icons/fi";
+import {
+  FaWhatsapp,
+  FaInstagram,
+  FaFacebookF,
+  FaLinkedinIn,
+} from "react-icons/fa";
 
-const navLinks = [
-  { title: "WHAT WE DO", path: "/what-we-do" },
-  { title: "WHO WE ARE", path: "/who-we-are" },
-  { title: "HOW WE DELIVER", path: "/how-we-deliver" },
-  { title: "JOIN DIGITAL AVINER", path: "/join-us" },
+/* ------------------------------------------------------------------
+   CONTACT
+------------------------------------------------------------------ */
+
+const PHONE_E164 = "+923034668695";
+const PHONE_DISPLAY = "+92 303 466 8695";
+
+const WHATSAPP_MSG = encodeURIComponent(
+  "Hi Digital Aviner — I'd like to discuss a project."
+);
+
+const WHATSAPP_URL = `https://wa.me/${PHONE_E164.replace(
+  "+",
+  ""
+)}?text=${WHATSAPP_MSG}`;
+
+/* ------------------------------------------------------------------
+   SOCIAL LINKS
+------------------------------------------------------------------ */
+
+const SOCIAL_LINKS = {
+  instagram: "https://instagram.com/YOUR_HANDLE",
+  facebook: "https://facebook.com/YOUR_PAGE",
+  linkedin: "https://linkedin.com/company/YOUR_COMPANY",
+};
+
+/* ------------------------------------------------------------------
+   GLASS SURFACE
+------------------------------------------------------------------ */
+
+const GLASS =
+  "bg-[#3b4657]/25 backdrop-blur-sm backdrop-saturate-50 " +
+  "shadow-[0_8px_32px_rgba(2,6,23,0.28)]";
+
+/* ------------------------------------------------------------------
+   SERVICES
+------------------------------------------------------------------ */
+
+const services = [
+  {
+    title: "SEO & AI Search Visibility",
+    path: "/services/seo",
+  },
+  {
+    title: "Performance Marketing",
+    path: "/services/performance-marketing",
+  },
+  {
+    title: "Web Design & Development",
+    path: "/services/web-development",
+  },
+  {
+    title: "Lead Generation",
+    path: "/services/lead-generation",
+  },
+  {
+    title: "Agentic AI Marketing",
+    path: "/services/agentic-ai-marketing",
+  },
+  {
+    title: "AI Agents & Automation",
+    path: "/services/ai-agents",
+  },
 ];
 
-const capabilities = [
-  { title: "Lead Generation", path: "/what-we-do/lead-generation" },
-  { title: "Agentic AI", path: "/what-we-do/agentic-ai" },
-  { title: "Generative AI", path: "/what-we-do/generative-ai" },
-  { title: "AI Agents on Demand", path: "/what-we-do/ai-agents-on-demand" },
-  { title: "Digital Marketing", path: "/what-we-do/digital-marketing" },
-  { title: "Cloud Computing", path: "/what-we-do/cloud-computing" },
-  { title: "SaaS", path: "/what-we-do/saas" },
-  { title: "Mobile App Development", path: "/what-we-do/mobile-app-development" },
-  { title: "Web Development", path: "/what-we-do/web-development" },
-];
+/* ------------------------------------------------------------------
+   INDUSTRIES
+------------------------------------------------------------------ */
 
 const industries = [
-  { title: "Real Estate", path: "/industries/real-estate" },
-  { title: "Healthcare", path: "/industries/healthcare" },
-  { title: "E-commerce", path: "/industries/ecommerce" },
-  { title: "Hospitality", path: "/industries/hospitality" },
-  { title: "Education", path: "/industries/education" },
-  { title: "Finance and Fintech", path: "/industries/finance-fintech" },
-  { title: "Construction", path: "/industries/construction" },
-  { title: "Retail", path: "/industries/retail" },
-  { title: "Logistics", path: "/industries/logistics" },
-  { title: "Professional Services", path: "/industries/professional-services" },
-  { title: "Automotive", path: "/industries/automotive" },
-  { title: "Travel and Tourism", path: "/industries/travel-tourism" },
+  {
+    title: "Interior Design & Fit-Out",
+    path: "/industries/interior-design-fit-out",
+  },
+  {
+    title: "Real Estate & Property",
+    path: "/industries/real-estate",
+  },
+  {
+    title: "Hospitality & Restaurants",
+    path: "/industries/hospitality",
+  },
+  {
+    title: "Retail & E-commerce",
+    path: "/industries/retail-ecommerce",
+  },
+  {
+    title: "Construction & Architecture",
+    path: "/industries/construction-architecture",
+  },
 ];
 
-const howWeDeliverLinks = [
-  { title: "Blogs", path: "/blogs" },
-  { title: "News", path: "/news" },
-  { title: "Case Studies", path: "/case-studies" },
+const insights = [
+  {
+    title: "Blog",
+    path: "/blog",
+  },
+  {
+    title: "Case Studies",
+    path: "/case-studies",
+  },
 ];
 
-const countries = [
-  { label: "UAE", path: "/" },
-  { label: "Global", path: "/" },
+/* ------------------------------------------------------------------
+   NAV STRUCTURE
+------------------------------------------------------------------ */
+
+const NAV = [
+  {
+    id: "services",
+    title: "SERVICES",
+    path: "/services",
+    columns: [
+      {
+        heading: "Capabilities",
+        links: services,
+      },
+      {
+        heading: "Industries",
+        links: industries,
+      },
+    ],
+    viewAll: {
+      label: "View all services",
+      path: "/services",
+    },
+  },
+
+  {
+    id: "who",
+    title: "WHO WE ARE",
+    path: "/who-we-are",
+  },
+
+  {
+    id: "insights",
+    title: "INSIGHTS",
+    path: "/insights",
+    columns: [
+      {
+        heading: "Insights",
+        links: insights,
+      },
+    ],
+  },
+
+  {
+    id: "careers",
+    title: "JOIN DIGITAL AVINER",
+    path: "/join-us",
+  },
 ];
+
+/* ------------------------------------------------------------------
+   SETTINGS
+------------------------------------------------------------------ */
 
 const BG_MS = 300;
 const STEP_DELAY_MS = 80;
-const NAVBAR_OFFSET = 72;
+const HIDE_AFTER_PX = 120;
+const SCROLL_DELTA_PX = 6;
+const FOOTER_ID = "footer";
+
+/* ------------------------------------------------------------------
+   NAVBAR
+------------------------------------------------------------------ */
 
 const Navbar = ({ className = "" }) => {
   const [hasMounted, setHasMounted] = useState(false);
+
   const [overlayMounted, setOverlayMounted] = useState(false);
   const [bgVisible, setBgVisible] = useState(false);
   const [contentVisible, setContentVisible] = useState(false);
+
   const [isVisible, setIsVisible] = useState(true);
 
-  const [selectedCountry, setSelectedCountry] = useState("UAE");
-  const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
-  const [whatWeDoOpen, setWhatWeDoOpen] = useState(false);
-  const [howWeDeliverOpen, setHowWeDeliverOpen] = useState(false);
+  const [openMenuId, setOpenMenuId] = useState(null);
+  const [mobileOpenId, setMobileOpenId] = useState(null);
 
   const lastScrollY = useRef(0);
-  const countryRef = useRef(null);
-  const whatWeDoRef = useRef(null);
-  const howWeDeliverRef = useRef(null);
+  const navRef = useRef(null);
+  const navHeight = useRef(72);
+
+  const pathname = usePathname();
+
+  /* --------------------------------------------------------------
+     Mounted
+  -------------------------------------------------------------- */
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
+  /* --------------------------------------------------------------
+     Measure navbar height
+  -------------------------------------------------------------- */
+
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (countryRef.current && !countryRef.current.contains(event.target)) {
-        setCountryDropdownOpen(false);
-      }
-
-      if (whatWeDoRef.current && !whatWeDoRef.current.contains(event.target)) {
-        setWhatWeDoOpen(false);
-      }
-
-      if (
-        howWeDeliverRef.current &&
-        !howWeDeliverRef.current.contains(event.target)
-      ) {
-        setHowWeDeliverOpen(false);
+    const measure = () => {
+      if (navRef.current) {
+        navHeight.current = navRef.current.offsetHeight;
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    measure();
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
-  const openMenu = () => {
+  /* --------------------------------------------------------------
+     Close desktop dropdown on outside click
+  -------------------------------------------------------------- */
+
+  useEffect(() => {
+    if (!openMenuId) return;
+
+    const onPointerDown = (e) => {
+      if (
+        navRef.current &&
+        !navRef.current.contains(e.target)
+      ) {
+        setOpenMenuId(null);
+      }
+    };
+
+    document.addEventListener("mousedown", onPointerDown);
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        onPointerDown
+      );
+    };
+  }, [openMenuId]);
+
+  /* --------------------------------------------------------------
+     MOBILE MENU OPEN
+  -------------------------------------------------------------- */
+
+  const openMenuOverlay = useCallback(() => {
     setOverlayMounted(true);
 
     requestAnimationFrame(() => {
       setBgVisible(true);
-      window.setTimeout(() => setContentVisible(true), STEP_DELAY_MS);
+
+      window.setTimeout(() => {
+        setContentVisible(true);
+      }, STEP_DELAY_MS);
     });
-  };
+  }, []);
 
-  const closeMenu = () => {
+  /* --------------------------------------------------------------
+     MOBILE MENU CLOSE
+  -------------------------------------------------------------- */
+
+  const closeMenu = useCallback(() => {
     setContentVisible(false);
+    setMobileOpenId(null);
 
-    window.setTimeout(() => setBgVisible(false), STEP_DELAY_MS);
+    window.setTimeout(() => {
+      setBgVisible(false);
+    }, STEP_DELAY_MS);
 
     window.setTimeout(() => {
       setOverlayMounted(false);
     }, STEP_DELAY_MS + BG_MS);
-  };
+  }, []);
 
   const toggleMenu = () => {
-    if (!overlayMounted) {
-      openMenu();
-    } else {
+    if (overlayMounted) {
       closeMenu();
+    } else {
+      openMenuOverlay();
     }
   };
 
+  /* --------------------------------------------------------------
+     "LET'S TALK BUSINESS" -> SCROLL TO FOOTER
+
+     The footer (Footer.jsx) renders <footer id="footer">. Rather
+     than relying on the browser's default hash-jump (which lands
+     the footer flush under this fixed navbar), we scroll to it
+     manually and offset by the navbar's real measured height.
+  -------------------------------------------------------------- */
+
+  const scrollToFooter = useCallback((behavior = "smooth") => {
+    const el = document.getElementById(FOOTER_ID);
+
+    if (!el) return false;
+
+    const top =
+      el.getBoundingClientRect().top +
+      window.scrollY -
+      (navHeight.current || 72) -
+      8;
+
+    window.scrollTo({
+      top: Math.max(top, 0),
+      behavior,
+    });
+
+    return true;
+  }, []);
+
+  const handleTalkBusinessClick = useCallback(
+    (e) => {
+      // Respect middle-click / cmd-click / ctrl-click "open in new tab".
+      if (
+        e.defaultPrevented ||
+        e.button !== 0 ||
+        e.metaKey ||
+        e.ctrlKey ||
+        e.shiftKey ||
+        e.altKey
+      ) {
+        return;
+      }
+
+      if (overlayMounted) {
+        closeMenu();
+      }
+
+      if (pathname !== "/") {
+        // We're on another page — let the Link navigate to
+        // "/#footer" normally; the effect below scrolls once
+        // we land on the homepage.
+        return;
+      }
+
+      // Already on the homepage — skip the full navigation and
+      // just smooth-scroll straight to the footer.
+      e.preventDefault();
+
+      scrollToFooter("smooth");
+
+      window.history.replaceState(null, "", `/#${FOOTER_ID}`);
+    },
+    [pathname, overlayMounted, closeMenu, scrollToFooter]
+  );
+
+  // Landed on "/#footer" (e.g. clicked from another page) —
+  // scroll to the footer once the page has mounted.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.location.hash !== `#${FOOTER_ID}`) return;
+
+    const raf = requestAnimationFrame(() => {
+      scrollToFooter("auto");
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, [pathname, scrollToFooter]);
+
+  /* --------------------------------------------------------------
+     ESCAPE KEY
+  -------------------------------------------------------------- */
+
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key !== "Escape") return;
+
+      if (openMenuId) {
+        setOpenMenuId(null);
+      } else if (overlayMounted) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [openMenuId, overlayMounted, closeMenu]);
+
+  /* --------------------------------------------------------------
+     BODY SCROLL LOCK
+  -------------------------------------------------------------- */
+
+  useEffect(() => {
+    if (!overlayMounted) return;
+
+    const previousOverflow =
+      document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow =
+        previousOverflow;
+    };
+  }, [overlayMounted]);
+
+  /* --------------------------------------------------------------
+     HIDE NAVBAR ON SCROLL DOWN
+  -------------------------------------------------------------- */
+
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+      const y = window.scrollY;
+      const delta = y - lastScrollY.current;
 
-      if (currentScrollY <= 0) {
+      if (Math.abs(delta) < SCROLL_DELTA_PX) {
+        return;
+      }
+
+      if (y <= HIDE_AFTER_PX) {
         setIsVisible(true);
-      } else if (currentScrollY > lastScrollY.current && !overlayMounted) {
+      } else if (delta > 0 && !overlayMounted) {
         setIsVisible(false);
-        setWhatWeDoOpen(false);
-        setHowWeDeliverOpen(false);
-        setCountryDropdownOpen(false);
-      } else if (currentScrollY < lastScrollY.current) {
+        setOpenMenuId(null);
+      } else if (delta < 0) {
         setIsVisible(true);
       }
 
-      lastScrollY.current = currentScrollY;
+      lastScrollY.current = y;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+      {
+        passive: true,
+      }
+    );
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
+    };
   }, [overlayMounted]);
 
   return (
     <>
+      {/* ==========================================================
+          NAVBAR
+      ========================================================== */}
+
       <nav
-        className={`fixed left-0 right-0 top-0 z-[10000] bg-black transition-transform duration-300 ${
-          isVisible || overlayMounted ? "translate-y-0" : "-translate-y-full"
+        ref={navRef}
+        aria-label="Primary"
+        className={`fixed left-0 right-0 top-0 z-[10000] transition-transform duration-300 motion-reduce:transition-none ${
+          isVisible || overlayMounted
+            ? "translate-y-0"
+            : "-translate-y-full"
         } ${className}`}
       >
-        <div className="mx-auto flex items-center justify-between px-4 py-4">
-          <Link href="/" className="group flex items-center">
-            <div className="relative h-6 w-40 overflow-hidden">
-              <img
-                src="/images/logo-f.png"
-                alt="Logo Final"
-                className="h-full object-contain md:hidden"
-              />
+        {/* NAVBAR BAR */}
 
-              <div className="relative hidden h-full w-full md:block">
+        <div className="border-b border-white/10 bg-black">
+          <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-4 py-4">
+            {/* LOGO */}
+
+            <Link
+              href="/"
+              className="flex shrink-0 items-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+            >
+              <span className="sr-only">
+                Digital Aviner — home
+              </span>
+
+              <div className="relative h-6 w-40">
                 <img
-                  src="/images/logo-i.png"
-                  alt="Logo Initial"
-                  className="absolute inset-y-0 left-0 h-full object-contain transition-opacity duration-500 group-hover:opacity-0"
+                  src="/images/logo-f.png"
+                  alt="Digital Aviner"
+                  width="160"
+                  height="24"
+                  className="h-full w-full object-contain"
                 />
-
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-0 overflow-hidden transition-all duration-500 ease-out group-hover:w-full">
-                  <img
-                    src="/images/logo-f.png"
-                    alt="Logo Final"
-                    className="h-full object-contain"
-                  />
-                </div>
               </div>
-            </div>
-          </Link>
+            </Link>
 
-          <ul className="hidden flex-1 items-center justify-center gap-6 text-[10px] text-white md:flex">
-            {navLinks.map((link) => {
-              const isWhatWeDo = link.title === "WHAT WE DO";
-              const isHowWeDeliver = link.title === "HOW WE DELIVER";
+            {/* ==================================================
+                DESKTOP NAVIGATION
+            ================================================== */}
 
-              return (
-                <li
-                  key={link.title}
-                  ref={
-                    isWhatWeDo
-                      ? whatWeDoRef
-                      : isHowWeDeliver
-                      ? howWeDeliverRef
-                      : null
-                  }
-                  className="relative"
-                >
-                  {isWhatWeDo ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setWhatWeDoOpen((prev) => !prev);
-                        setHowWeDeliverOpen(false);
-                        setCountryDropdownOpen(false);
-                      }}
-                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
-                    >
-                      <span>{link.title}</span>
-                      <FiChevronDown
-                        className={`text-[0.8rem] transition-transform duration-300 ${
-                          whatWeDoOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                  ) : isHowWeDeliver ? (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setHowWeDeliverOpen((prev) => !prev);
-                        setWhatWeDoOpen(false);
-                        setCountryDropdownOpen(false);
-                      }}
-                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
-                    >
-                      <span>{link.title}</span>
-                      <FiChevronDown
-                        className={`text-[0.8rem] transition-transform duration-300 ${
-                          howWeDeliverOpen ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                  ) : (
-                    <Link
-                      href={link.path}
-                      className="flex items-center gap-2 uppercase transition hover:opacity-80"
-                    >
-                      <span>{link.title}</span>
-                      <FiChevronDown className="text-[0.8rem]" />
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+            <ul className="hidden flex-1 items-center justify-center gap-7 text-[10px] tracking-[0.08em] text-white lg:flex">
+              {NAV.map((item) => {
+                const hasMenu = Boolean(
+                  item.columns
+                );
 
-          <div className="hidden items-center gap-4 md:flex">
-            <div className="flex items-center gap-2 whitespace-nowrap text-xs text-white">
-              <span className="flex h-5 w-5 items-center justify-center text-[10px]">
-                <FiPhoneCall />
-              </span>
-              <span className="tracking-wide">+971 50 415 3813</span>
-            </div>
+                const isOpen =
+                  openMenuId === item.id;
 
-            <div className="flex items-center gap-2 whitespace-nowrap text-xs text-white">
-              <FaWhatsapp className="text-base" />
-              <span className="tracking-wide">+971 50 415 3813</span>
-            </div>
+                return (
+                  <li
+                    key={item.id}
+                    className="relative"
+                  >
+                    {hasMenu ? (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setOpenMenuId(
+                            isOpen
+                              ? null
+                              : item.id
+                          )
+                        }
+                        aria-expanded={isOpen}
+                        aria-haspopup="true"
+                        aria-controls={`menu-${item.id}`}
+                        className="flex items-center gap-2 rounded px-1 py-1 uppercase transition hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        <span>
+                          {item.title}
+                        </span>
 
-            <div ref={countryRef} className="relative">
-              <button
-                type="button"
-                onClick={() => {
-                  setCountryDropdownOpen((prev) => !prev);
-                  setWhatWeDoOpen(false);
-                  setHowWeDeliverOpen(false);
-                }}
-                className="flex items-center gap-2 whitespace-nowrap text-xs text-white transition hover:opacity-80"
-                aria-label="Select country"
+                        <FiChevronDown
+                          aria-hidden="true"
+                          className={`text-[0.85rem] transition-transform duration-300 motion-reduce:transition-none ${
+                            isOpen
+                              ? "rotate-180"
+                              : ""
+                          }`}
+                        />
+                      </button>
+                    ) : (
+                      <Link
+                        href={item.path}
+                        className="flex items-center rounded px-1 py-1 uppercase transition hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        {item.title}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+
+            {/* ==================================================
+                DESKTOP CONTACT
+            ================================================== */}
+
+            <div className="hidden shrink-0 items-center gap-5 lg:flex">
+              {/* PHONE */}
+
+              <a
+                href={`tel:${PHONE_E164}`}
+                className="flex items-center gap-2 whitespace-nowrap rounded text-xs text-white transition hover:text-[#34C7C2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
               >
-                <FiGlobe className="text-base" />
-                <span className="tracking-wide">{selectedCountry}</span>
-                <FiChevronDown
-                  className={`text-sm transition-transform duration-300 ${
-                    countryDropdownOpen ? "rotate-180" : ""
-                  }`}
+                <FiPhoneCall
+                  aria-hidden="true"
+                  className="text-sm"
                 />
-              </button>
 
-              {countryDropdownOpen && (
-                <div className="absolute right-0 top-8 w-48 overflow-hidden rounded-md border border-white/10 bg-[#1f1f1f] shadow-xl">
-                  {countries.map((country) => (
-                    <Link
-                      key={country.label}
-                      href={country.path}
-                      onClick={() => {
-                        setSelectedCountry(country.label);
-                        setCountryDropdownOpen(false);
-                      }}
-                      className={`block px-4 py-3 text-xs text-white transition hover:bg-white/10 ${
-                        selectedCountry === country.label ? "bg-white/10" : ""
-                      }`}
-                    >
-                      {country.label}
-                    </Link>
-                  ))}
-                </div>
-              )}
+                <span className="tracking-wide">
+                  {PHONE_DISPLAY}
+                </span>
+              </a>
+
+              {/* WHATSAPP */}
+
+              <a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Message Digital Aviner on WhatsApp at ${PHONE_DISPLAY}`}
+                className="flex items-center gap-2 rounded text-white transition hover:text-[#0B8839] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+              >
+                <FaWhatsapp
+                  aria-hidden="true"
+                  className="text-lg"
+                />
+
+                <span className="text-xs tracking-wide">
+                  WhatsApp
+                </span>
+              </a>
+
+              {/* FOOTER CTA */}
+
+              <Link
+                href={`/#${FOOTER_ID}`}
+                onClick={handleTalkBusinessClick}
+                className="whitespace-nowrap rounded-full bg-[var(--brand-500)] px-5 py-2 text-xs font-semibold text-white transition hover:bg-[#34C7C2] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              >
+                Let&apos;s Talk Business
+              </Link>
             </div>
-          </div>
 
-          <button
-            type="button"
-            onClick={toggleMenu}
-            aria-label={overlayMounted ? "Close menu" : "Open menu"}
-            className="relative flex h-8 w-10 items-center justify-end md:hidden"
-          >
-            {overlayMounted ? (
-              <FiX className="text-3xl text-white" />
-            ) : (
-              <span className="flex flex-col items-end gap-1.5">
-                <span className="h-[2px] w-8 bg-white" />
-                <span className="h-[2px] w-8 bg-white" />
-                <span className="h-[2px] w-8 bg-white" />
-              </span>
-            )}
-          </button>
+            {/* ==================================================
+                MOBILE TOGGLE
+            ================================================== */}
+
+            <button
+              type="button"
+              onClick={toggleMenu}
+              aria-label={
+                overlayMounted
+                  ? "Close menu"
+                  : "Open menu"
+              }
+              aria-expanded={overlayMounted}
+              className="relative flex h-8 w-10 shrink-0 items-center justify-end rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)] lg:hidden"
+            >
+              {overlayMounted ? (
+                <FiX
+                  aria-hidden="true"
+                  className="text-3xl text-white"
+                />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="flex flex-col items-end gap-1.5"
+                >
+                  <span className="h-[2px] w-8 bg-white" />
+                  <span className="h-[2px] w-8 bg-white" />
+                  <span className="h-[2px] w-8 bg-white" />
+                </span>
+              )}
+            </button>
+          </div>
         </div>
 
-        {whatWeDoOpen && (
-          <div className="hidden border-t border-white/10 bg-[#1f1f1f] px-4 py-12 text-white md:block">
-            <div className="mx-auto grid max-w-6xl grid-cols-2 gap-20">
-              <div>
-                <h3 className="mb-7 text-sm font-medium text-white/45">
-                  Capabilities
-                </h3>
+        {/* ======================================================
+            DESKTOP MEGA MENUS
+        ====================================================== */}
 
-                <div className="grid grid-cols-2 gap-x-10 gap-y-5">
-                  {capabilities.map((item) => (
-                    <Link
-                      key={item.title}
-                      href={item.path}
-                      onClick={() => setWhatWeDoOpen(false)}
-                      className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
-                    >
-                      {item.title}
-                    </Link>
-                  ))}
+        {NAV.filter(
+          (item) => item.columns
+        ).map((item) => {
+          const isOpen =
+            openMenuId === item.id;
+
+          return (
+            <div
+              key={item.id}
+              id={`menu-${item.id}`}
+              inert={
+                isOpen
+                  ? undefined
+                  : ""
+              }
+              className={`absolute left-0 right-0 top-full hidden border-b border-white/10 px-4 py-12 text-white transition-all duration-200 ease-out motion-reduce:transition-none lg:block ${GLASS} ${
+                isOpen
+                  ? "visible translate-y-0 opacity-100"
+                  : "invisible -translate-y-2 opacity-0"
+              }`}
+            >
+              <div className="mx-auto max-w-6xl">
+                <div
+                  className={`grid gap-16 ${
+                    item.columns.length > 1
+                      ? "grid-cols-2"
+                      : "grid-cols-1"
+                  }`}
+                >
+                  {item.columns.map(
+                    (col) => (
+                      <div
+                        key={col.heading}
+                      >
+                        <h2 className="mb-6 text-xs font-medium uppercase tracking-[0.15em] text-white/50">
+                          {col.heading}
+                        </h2>
+
+                        <ul className="grid grid-cols-2 gap-x-10 gap-y-4">
+                          {col.links.map(
+                            (link) => (
+                              <li
+                                key={
+                                  link.title
+                                }
+                              >
+                                <Link
+                                  href={
+                                    link.path
+                                  }
+                                  onClick={() =>
+                                    setOpenMenuId(
+                                      null
+                                    )
+                                  }
+                                  className="rounded text-[15px] leading-relaxed text-white/80 transition hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                                >
+                                  {
+                                    link.title
+                                  }
+                                </Link>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    )
+                  )}
                 </div>
-              </div>
 
-              <div>
-                <h3 className="mb-7 text-sm font-medium text-white/45">
-                  Industries
-                </h3>
-
-                <div className="grid grid-cols-2 gap-x-10 gap-y-5">
-                  {industries.map((item) => (
+                {item.viewAll && (
+                  <div className="mt-10 border-t border-white/10 pt-6">
                     <Link
-                      key={item.title}
-                      href={item.path}
-                      onClick={() => setWhatWeDoOpen(false)}
-                      className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
+                      href={
+                        item.viewAll.path
+                      }
+                      onClick={() =>
+                        setOpenMenuId(null)
+                      }
+                      className="inline-flex items-center gap-2 rounded text-sm font-semibold text-[var(--brand-500)] transition hover:text-[var(--brand-600)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
                     >
-                      {item.title}
+                      {
+                        item.viewAll.label
+                      }
+
+                      <FiArrowRight
+                        aria-hidden="true"
+                      />
                     </Link>
-                  ))}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
-          </div>
-        )}
-
-        {howWeDeliverOpen && (
-          <div className="hidden border-t border-white/10 bg-[#1f1f1f] px-4 py-12 text-white md:block">
-            <div className="mx-auto max-w-6xl">
-              <h3 className="mb-7 text-sm font-medium text-white/45">
-                How We Deliver
-              </h3>
-
-              <div className="grid max-w-2xl grid-cols-3 gap-x-16 gap-y-5">
-                {howWeDeliverLinks.map((item) => (
-                  <Link
-                    key={item.title}
-                    href={item.path}
-                    onClick={() => setHowWeDeliverOpen(false)}
-                    className="text-[15px] leading-relaxed text-white/90 transition hover:text-white hover:underline"
-                  >
-                    {item.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+          );
+        })}
       </nav>
+
+      {/* ==========================================================
+          MOBILE OVERLAY
+      ========================================================== */}
 
       {hasMounted &&
         overlayMounted &&
         createPortal(
-          <div className="fixed inset-0 z-[9999] md:hidden">
+          <div
+            className="fixed inset-0 z-[9999] lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+          >
+            {/* BACKGROUND */}
+
             <div
-              className={`absolute inset-0 bg-black transition-opacity duration-300 ease-out ${
-                bgVisible ? "opacity-100" : "opacity-0"
+              style={{
+                top: navHeight.current,
+              }}
+              className={`absolute bottom-0 left-0 right-0 bg-black transition-opacity duration-300 ease-out motion-reduce:transition-none ${
+                bgVisible
+                  ? "opacity-100"
+                  : "opacity-0"
               }`}
               onClick={closeMenu}
             />
 
+            {/* MENU CONTENT */}
+
             <div
-              className="absolute bottom-0 left-0 right-0"
-              style={{ top: NAVBAR_OFFSET }}
-              onClick={(e) => e.stopPropagation()}
+              className="absolute bottom-0 left-0 right-0 overflow-y-auto overscroll-contain"
+              style={{
+                top: navHeight.current,
+              }}
+              onClick={(e) =>
+                e.stopPropagation()
+              }
             >
               <div
-                className={`h-full w-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                  contentVisible ? "translate-y-0" : "-translate-y-full"
+                className={`w-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${
+                  contentVisible
+                    ? "translate-y-0"
+                    : "-translate-y-full"
                 }`}
               >
                 <div
-                  className={`h-full w-full transition-opacity delay-100 duration-300 ${
-                    contentVisible ? "opacity-100" : "opacity-0"
+                  className={`w-full transition-opacity delay-100 duration-300 motion-reduce:transition-none ${
+                    contentVisible
+                      ? "opacity-100"
+                      : "opacity-0"
                   }`}
                 >
-                  <div className="px-6 pt-10">
-                    <ul className="flex flex-col gap-10 text-white">
-                      {navLinks.map((link) => (
-                        <li key={link.title}>
-                          <Link
-                            href={link.path}
-                            onClick={closeMenu}
-                            className="flex items-center justify-between text-[16px] uppercase tracking-wide"
-                          >
-                            <span>{link.title}</span>
-                            <FiChevronDown className="text-lg opacity-80" />
-                          </Link>
-                        </li>
-                      ))}
+                  <div className="px-6 pb-16 pt-8">
+                    {/* MOBILE NAV */}
+
+                    <ul className="flex flex-col divide-y divide-white/10 text-white">
+                      {NAV.map(
+                        (item) => {
+                          const hasMenu =
+                            Boolean(
+                              item.columns
+                            );
+
+                          const isOpen =
+                            mobileOpenId ===
+                            item.id;
+
+                          return (
+                            <li
+                              key={
+                                item.id
+                              }
+                              className="py-5"
+                            >
+                              {hasMenu ? (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setMobileOpenId(
+                                        isOpen
+                                          ? null
+                                          : item.id
+                                      )
+                                    }
+                                    aria-expanded={
+                                      isOpen
+                                    }
+                                    aria-controls={`m-${item.id}`}
+                                    className="flex w-full items-center justify-between rounded text-[16px] uppercase tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                                  >
+                                    <span>
+                                      {
+                                        item.title
+                                      }
+                                    </span>
+
+                                    <FiChevronDown
+                                      aria-hidden="true"
+                                      className={`text-lg text-[var(--brand-500)] transition-transform duration-300 motion-reduce:transition-none ${
+                                        isOpen
+                                          ? "rotate-180"
+                                          : ""
+                                      }`}
+                                    />
+                                  </button>
+
+                                  {isOpen && (
+                                    <div
+                                      id={`m-${item.id}`}
+                                      className="mt-5 space-y-6"
+                                    >
+                                      {item.columns.map(
+                                        (
+                                          col
+                                        ) => (
+                                          <div
+                                            key={
+                                              col.heading
+                                            }
+                                          >
+                                            <h2 className="mb-3 text-[11px] uppercase tracking-[0.15em] text-white/50">
+                                              {
+                                                col.heading
+                                              }
+                                            </h2>
+
+                                            <ul className="space-y-3">
+                                              {col.links.map(
+                                                (
+                                                  link
+                                                ) => (
+                                                  <li
+                                                    key={
+                                                      link.title
+                                                    }
+                                                  >
+                                                    <Link
+                                                      href={
+                                                        link.path
+                                                      }
+                                                      onClick={
+                                                        closeMenu
+                                                      }
+                                                      className="block rounded text-[15px] text-white/80 transition hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                                                    >
+                                                      {
+                                                        link.title
+                                                      }
+                                                    </Link>
+                                                  </li>
+                                                )
+                                              )}
+                                            </ul>
+                                          </div>
+                                        )
+                                      )}
+                                    </div>
+                                  )}
+                                </>
+                              ) : (
+                                <Link
+                                  href={
+                                    item.path
+                                  }
+                                  onClick={
+                                    closeMenu
+                                  }
+                                  className="block rounded text-[16px] uppercase tracking-wide focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                                >
+                                  {
+                                    item.title
+                                  }
+                                </Link>
+                              )}
+                            </li>
+                          );
+                        }
+                      )}
                     </ul>
 
-                    <div className="mt-10 border-t border-white/10 pt-8">
-                      <div className="mb-5 flex items-center gap-3 text-white">
-                        <FiGlobe className="text-xl" />
-                        <span className="text-[16px] font-medium uppercase tracking-wide">
-                          Select Country
-                        </span>
-                      </div>
+                    {/* ==================================================
+                        MOBILE CONTACT
+                    ================================================== */}
 
-                      <div className="flex flex-col gap-4">
-                        {countries.map((country) => (
-                          <Link
-                            key={country.label}
-                            href={country.path}
-                            onClick={() => {
-                              setSelectedCountry(country.label);
-                              closeMenu();
-                            }}
-                            className={`text-[15px] text-white/80 transition hover:text-white ${
-                              selectedCountry === country.label
-                                ? "text-white"
-                                : ""
-                            }`}
-                          >
-                            {country.label}
-                          </Link>
-                        ))}
-                      </div>
+                    <div className="mt-8 space-y-4 border-t border-white/10 pt-8">
+                      <a
+                        href={`tel:${PHONE_E164}`}
+                        className="flex items-center gap-3 rounded text-[15px] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        <FiPhoneCall
+                          aria-hidden="true"
+                          className="text-lg text-[var(--brand-500)]"
+                        />
+
+                        {
+                          PHONE_DISPLAY
+                        }
+                      </a>
+
+                      <a
+                        href={
+                          WHATSAPP_URL
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Message Digital Aviner on WhatsApp at ${PHONE_DISPLAY}`}
+                        className="flex items-center gap-3 rounded text-[15px] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        <FaWhatsapp
+                          aria-hidden="true"
+                          className="text-lg text-[var(--brand-500)]"
+                        />
+
+                        WhatsApp
+                      </a>
                     </div>
 
-                    <div className="mt-14 space-y-4">
+                    {/* ==================================================
+                        MOBILE CTAs
+                    ================================================== */}
+
+                    <div className="mt-8 space-y-3">
+                      <Link
+                        href={`/#${FOOTER_ID}`}
+                        onClick={handleTalkBusinessClick}
+                        className="block w-full rounded-full bg-[var(--brand-500)] py-4 text-center font-semibold text-white transition hover:bg-[#34C7C2]"
+                      >
+                        Let&apos;s Talk
+                        Business
+                      </Link>
+
                       <Link
                         href="/join-us"
-                        onClick={closeMenu}
-                        className="block w-full rounded-full bg-[#4FB9B3] py-4 text-center font-semibold text-white"
+                        onClick={
+                          closeMenu
+                        }
+                        className="block w-full rounded-full border border-[var(--brand-500)] py-4 text-center font-semibold text-[var(--brand-500)] transition hover:bg-[var(--brand-500)] hover:text-white"
                       >
                         Explore Careers
                       </Link>
+                    </div>
 
-                      <Link
-                        href="/contact"
-                        onClick={closeMenu}
-                        className="block w-full rounded-full border border-[#4FB9B3] py-4 text-center font-semibold text-[#4FB9B3]"
+                    {/* ==================================================
+                        SOCIAL MEDIA
+                    ================================================== */}
+
+                    <div className="mt-10 flex items-center justify-center gap-6 border-t border-white/10 pt-8">
+                      <a
+                        href={
+                          SOCIAL_LINKS.instagram
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Instagram"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-[var(--brand-500)] hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
                       >
-                        Let&apos;s Talk Business
-                      </Link>
+                        <FaInstagram
+                          aria-hidden="true"
+                          className="text-lg"
+                        />
+                      </a>
+
+                      <a
+                        href={
+                          SOCIAL_LINKS.facebook
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Facebook"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-[var(--brand-500)] hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        <FaFacebookF
+                          aria-hidden="true"
+                          className="text-lg"
+                        />
+                      </a>
+
+                      <a
+                        href={
+                          SOCIAL_LINKS.linkedin
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="LinkedIn"
+                        className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white transition hover:border-[var(--brand-500)] hover:text-[var(--brand-500)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-500)]"
+                      >
+                        <FaLinkedinIn
+                          aria-hidden="true"
+                          className="text-lg"
+                        />
+                      </a>
                     </div>
                   </div>
                 </div>

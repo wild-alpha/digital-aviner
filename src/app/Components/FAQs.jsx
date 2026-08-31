@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
 
 const faqs = [
   {
@@ -34,11 +37,20 @@ const faqs = [
 ];
 
 const FAQs = () => {
+  // Exactly one FAQ open at a time. -1 means none are open; clicking
+  // the currently open question closes it, clicking another opens it
+  // and closes whichever one was open before.
+  const [openIndex, setOpenIndex] = useState(0);
+
+  const toggleFaq = (index) => {
+    setOpenIndex((prev) => (prev === index ? -1 : index));
+  };
+
   return (
     <section className="w-full py-16 px-4 md:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center">
-          <p className="text-[#caa193] uppercase tracking-[0.2em] text-sm mb-3">
+          <p className="text-[#33C7C2] tracking-[0.2em] text-sm mb-3">
             FAQs
           </p>
           <h2 className="text-3xl md:text-4xl font-conthrax text-white leading-tight">
@@ -50,19 +62,55 @@ const FAQs = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="rounded-2xl border border-[#2a2a2a] bg-[#111111] p-6 shadow-sm"
-            >
-              <h3 className="text-lg md:text-xl font-conthrax text-[#caa193] leading-snug">
-                {faq.question}
-              </h3>
-              <p className="mt-3 text-gray-300 font-play leading-relaxed">
-                {faq.answer}
-              </p>
-            </div>
-          ))}
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            const buttonId = `faq-button-${index}`;
+            const panelId = `faq-panel-${index}`;
+
+            return (
+              <div
+                key={index}
+                className="rounded-2xl border border-[#2a2a2a] bg-[#111111] p-6 shadow-sm"
+              >
+                <button
+                  type="button"
+                  id={buttonId}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  onClick={() => toggleFaq(index)}
+                  className="flex w-full items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[#33C7C2] rounded"
+                >
+                  <h3 className="text-lg md:text-xl text-12 font-semibold text-white leading-snug">
+                    {faq.question}
+                  </h3>
+
+                  <FiChevronDown
+                    aria-hidden="true"
+                    className={`shrink-0 text-xl text-[#33C7C2] transition-transform duration-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  className={`grid mt-3 transition-all duration-300 ease-in-out ${
+                    isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="text-gray-300 text-10 font-play leading-relaxed">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

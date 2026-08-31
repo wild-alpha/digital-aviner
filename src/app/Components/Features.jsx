@@ -1,7 +1,38 @@
 "use client";
 
-import React from "react";
+import React, { useCallback } from "react";
 import Link from "next/link";
+
+/* Matches the <nav aria-label="Primary"> in Navbar.jsx, so any
+   "#anchor" CTA here can offset its scroll by the real, current
+   navbar height without needing to share state with that component. */
+const NAV_SELECTOR = 'nav[aria-label="Primary"]';
+const FALLBACK_NAV_HEIGHT = 80;
+
+function isHashHref(href) {
+  return typeof href === "string" && href.startsWith("#");
+}
+
+function scrollToHashTarget(targetId) {
+  const el = document.getElementById(targetId);
+
+  if (!el) return false;
+
+  const nav = document.querySelector(NAV_SELECTOR);
+  const navHeight = nav ? nav.offsetHeight : FALLBACK_NAV_HEIGHT;
+
+  const top =
+    el.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+
+  window.scrollTo({
+    top: Math.max(top, 0),
+    behavior: "smooth",
+  });
+
+  window.history.replaceState(null, "", `#${targetId}`);
+
+  return true;
+}
 
 const defaultPartners = [
   { src: "/images/adobe-creative-cloud.webp", alt: "Salesforce" },
@@ -12,8 +43,8 @@ const defaultPartners = [
 const defaultCards = [
   {
     tag: "Case Study",
-    title: "Dubai's Premium Interior Design Company Generated AED 12M+ Revenue",
-    image: "/images/interior-design-case-study.webp",
+    title: "USA's Premium Real Estate Company Got 35% More Qualified Leads in 3 Months",
+    image: "/images/real-estate.webp",
     href: "/case-studies/interior-design-revenue",
     size: "md",
   },
@@ -47,8 +78,8 @@ const defaultCards = [
   },
   {
     tag: "Case Study",
-    title: "Dubai's Premium Real Estate Company Drives 40% Growth",
-    image: "/images/real-estate-case-study.webp",
+    title: "USA's Exotic Limo Car Company Drives 40% Growth",
+    image: "/images/limo.webp",
     href: "/case-studies/real-estate-growth",
     size: "md",
   },
@@ -76,7 +107,7 @@ export default function Features({
   ),
   insightsSub = "From Concept to Completion",
   insightsCtaLabel = "Explore More",
-  insightsCtaHref = "/insights",
+  insightsCtaHref = "#footer",
   insightCards = defaultCards,
 
   achievementsEyebrow = "PIONEERING TRUST AND INNOVATION",
@@ -84,7 +115,7 @@ export default function Features({
   achievementsBody =
     "We take pride in empowering businesses worldwide with innovative solutions.\n\nDigital Aviner’s bring an unwavering commitment to excellence, backed by a global presence.",
   achievementsCtaLabel = "Get in Touch",
-  achievementsCtaHref = "/contact",
+  achievementsCtaHref = "#footer",
 
   stats = defaultStats,
 
@@ -92,6 +123,31 @@ export default function Features({
   sideCtaLabel = "Let's Talk Business",
   sideCtaHref = "/contact",
 }) {
+  // Only same-page anchors ("#footer") get the custom scroll — any
+  // other href (a real route, an external link, etc.) behaves like
+  // a normal Link.
+  const handleHashLinkClick = useCallback((e, href) => {
+    if (!isHashHref(href)) return;
+
+    // Respect middle-click / cmd-click / ctrl-click "open in new tab".
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey
+    ) {
+      return;
+    }
+
+    const scrolled = scrollToHashTarget(href.slice(1));
+
+    if (scrolled) {
+      e.preventDefault();
+    }
+  }, []);
+
   return (
     <section className={`relative overflow-hidden bg-black text-white ${className}`}>
       <div className="pointer-events-none absolute inset-0">
@@ -153,6 +209,7 @@ export default function Features({
             <div className="mt-8">
               <Link
                 href={insightsCtaHref}
+                onClick={(e) => handleHashLinkClick(e, insightsCtaHref)}
                 className="inline-flex items-center justify-center rounded-full bg-[#33C7C2] px-8 py-4 text-base font-semibold text-black transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/40"
               >
                 {insightsCtaLabel}
@@ -226,6 +283,7 @@ export default function Features({
             <div className="mt-8">
               <Link
                 href={achievementsCtaHref}
+                onClick={(e) => handleHashLinkClick(e, achievementsCtaHref)}
                 className="inline-flex items-center justify-center rounded-full bg-[#33C7C2] px-8 py-4 text-base font-semibold text-black transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-white/40"
               >
                 {achievementsCtaLabel}
