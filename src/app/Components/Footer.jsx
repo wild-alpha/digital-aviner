@@ -10,12 +10,12 @@ const defaultGroups = [
   {
     title: "Services",
     links: [
-      { label: "SEO & AI Search Visibility", href: "/services/seo" },
-      { label: "Performance Marketing", href: "/services/performance-marketing" },
-      { label: "Web Design & Development", href: "/services/web-development" },
-      { label: "Lead Generation", href: "/services/lead-generation" },
-      { label: "Agentic AI Marketing", href: "/services/agentic-ai-marketing" },
-      { label: "AI Agents & Automation", href: "/services/ai-agents" },
+      { label: "SEO & AI Search Visibility", href:"" },
+      { label: "Performance Marketing", href: "" },
+      { label: "Web Design & Development", href: "" },
+      { label: "Lead Generation", href: "" },
+      { label: "Agentic AI Marketing", href: "" },
+      { label: "AI Agents & Automation", href: "" },
     ],
   },
   {
@@ -25,40 +25,40 @@ const defaultGroups = [
         label: "Interior Design & Fit-Out",
         href: "/industries/interior-design-fit-out",
       },
-      { label: "Real Estate & Property", href: "/industries/real-estate" },
-      { label: "Hospitality & Restaurants", href: "/industries/hospitality" },
-      { label: "Retail & E-commerce", href: "/industries/retail-ecommerce" },
+      { label: "Real Estate & Property", href: "" },
+      { label: "Hospitality & Restaurants", href: "" },
+      { label: "Retail & E-commerce", href: "" },
       {
         label: "Construction & Architecture",
-        href: "/industries/construction-architecture",
+        href: "",
       },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "Who We Are", href: "/who-we-are" },
-      { label: "Join Digital Aviner", href: "/join-us" },
-      { label: "Let's Talk Business", href: "/contact" },
+      { label: "Who We Are", href: "#" },
+      { label: "Join Digital Aviner", href: "#" },
+      { label: "Let's Talk Business", href: "#" },
     ],
   },
   {
     title: "Insights",
     links: [
-      { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "/case-studies" },
+      { label: "Blog", href: "#" },
+      { label: "Case Studies", href: "#" },
     ],
   },
 ];
 
 const defaultLegal = [
-  { label: "Terms and Conditions", href: "/terms" },
-  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms and Conditions", href: "#" },
+  { label: "Privacy Policy", href: "#" },
 ];
 
 const defaultSocial = [
   { label: "Facebook", href: "#", external: true },
-  { label: "LinkedIn", href: "#", external: true },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/103629992", external: true },
   { label: "Instagram", href: "#", external: true },
   { label: "X", href: "#", external: true },
 ];

@@ -63,27 +63,27 @@ const GLASS =
 const services = [
   {
     title: "SEO & AI Search Visibility",
-    path: "/services/seo",
+    path: "#",
   },
   {
     title: "Performance Marketing",
-    path: "/services/performance-marketing",
+    path: "#",
   },
   {
     title: "Web Design & Development",
-    path: "/services/web-development",
+    path: "#",
   },
   {
     title: "Lead Generation",
-    path: "/services/lead-generation",
+    path: "#",
   },
   {
     title: "Agentic AI Marketing",
-    path: "/services/agentic-ai-marketing",
+    path: "#",
   },
   {
     title: "AI Agents & Automation",
-    path: "/services/ai-agents",
+    path: "#",
   },
 ];
 
@@ -94,34 +94,34 @@ const services = [
 const industries = [
   {
     title: "Interior Design & Fit-Out",
-    path: "/industries/interior-design-fit-out",
+    path: "#",
   },
   {
     title: "Real Estate & Property",
-    path: "/industries/real-estate",
+    path: "#",
   },
   {
     title: "Hospitality & Restaurants",
-    path: "/industries/hospitality",
+    path: "#",
   },
   {
     title: "Retail & E-commerce",
-    path: "/industries/retail-ecommerce",
+    path: "#",
   },
   {
     title: "Construction & Architecture",
-    path: "/industries/construction-architecture",
+    path: "#",
   },
 ];
 
 const insights = [
   {
     title: "Blog",
-    path: "/blog",
+    path: "#",
   },
   {
     title: "Case Studies",
-    path: "/case-studies",
+    path: "#",
   },
 ];
 
@@ -133,7 +133,7 @@ const NAV = [
   {
     id: "services",
     title: "SERVICES",
-    path: "/services",
+    path: "#",
     columns: [
       {
         heading: "Capabilities",
@@ -146,20 +146,20 @@ const NAV = [
     ],
     viewAll: {
       label: "View all services",
-      path: "/services",
+      path: "#",
     },
   },
 
   {
     id: "who",
     title: "WHO WE ARE",
-    path: "/who-we-are",
+    path: "",
   },
 
   {
     id: "insights",
     title: "INSIGHTS",
-    path: "/insights",
+    path: "#",
     columns: [
       {
         heading: "Insights",
@@ -171,7 +171,7 @@ const NAV = [
   {
     id: "careers",
     title: "JOIN DIGITAL AVINER",
-    path: "/join-us",
+    path: "",
   },
 ];
 
